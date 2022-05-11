@@ -440,7 +440,7 @@ h2 {
 
 /* SLIDER */
 .limited {
-    padding-top: 86%;
+    padding-top: 75%;
 }
 .hovlimit {
     position: absolute;
@@ -654,16 +654,16 @@ h2 {
 .w-action:hover {
     opacity: 0.8;
 }
-
-.menuicon {
-    display: none;
-    position: absolute;
-    z-index: 3;
-    top: 0;
+.favorite {
     width: 52px;
-    height: 52px;
+}
+.menuicon {
+    width: 52px;
+    display: none;
+    padding: 8px;
     cursor: pointer;
     transition: opacity 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    position: relative;
 }
 
 .bread {
@@ -675,6 +675,7 @@ h2 {
     height: 30px;
     transition: transform 0.3192s cubic-bezier(0.04, 0.04, 0.12, 0.96) 0.1008s;
 }
+
 .bread-crust {
     display: block;
     width: 30px;
@@ -756,7 +757,7 @@ h2 {
     flex-direction: row;
     padding-bottom: 10px;
     border-bottom: 1px solid #dbdbdb;
-    height: 269px;
+    height: 250px;
 }
 
 .user {
@@ -769,7 +770,7 @@ h2 {
 }
 
 .pres {
-    width: 300px;
+    width: 320px;
     justify-content: flex-end;
     background-color: #7a7a7a2e;
     flex-shrink: 0;
@@ -921,6 +922,7 @@ h2 {
     border-radius: 0px;
     background-color: #f1f1f1;
     border-radius: 8px;
+    margin: 0 10px;
 }
 
 .lab {
@@ -1124,13 +1126,14 @@ h2 {
 
 @media (max-width: 1023px) {
     .main {
-        margin-top: 20px;
+        margin-top: 72px;
     }
     .global {
         min-height: 52px;
         max-height: 52px;
-        position: sticky;
+        position: fixed;
         top: 0;
+        width: 100%;
         z-index: 1;
     }
     .glo {
@@ -1139,13 +1142,10 @@ h2 {
     .phone {
         display: none;
     }
-    .favorite {
-        display: none;
-    }
     .logo {
         font-size: 2.6rem;
-        width: 100%;
         align-items: center;
+        flex-grow: 1;
     }
     .menuicon {
         display: block;
@@ -1167,7 +1167,6 @@ h2 {
         flex-direction: column;
     }
     .filter {
-        margin: 0 16px;
         margin-bottom: 40px;
     }
 }
@@ -1175,9 +1174,6 @@ h2 {
 @media (max-width: 1190px) and (min-width: 600px) {
     .sheet {
         padding: 0 20px;
-    }
-    .menuicon {
-        left: 20px;
     }
 }
 
@@ -1202,19 +1198,21 @@ h2 {
         margin: 10px 0;
     }
     .action {
-        padding: 20px 0px;
+        padding: 0;
+        justify-content: center;
     }
 }
 
 @media (min-width: 661px) {
     .action {
-        padding: 70px 20px;
+        padding: 20px;
+        justify-content: center;
     }
     .contact {
         height: 52px;
         min-height: 52px;
         position: absolute;
-        padding-left: 315px;
+        padding-left: 335px;
     }
     .body {
         margin-top: 60px;
@@ -1243,7 +1241,7 @@ h2 {
         flex-grow: 1;
         max-width: 320px;
         min-width: 320px;
-        margin-right: 20px;
+        margin-right: 30px;
     }
     .main {
         margin-top: 50px;

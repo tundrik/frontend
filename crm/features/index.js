@@ -127,7 +127,7 @@ const Estate = ({ node }) => (
       Удалить объект
     </div>
     <div className="button" onClick={() => edit(node)}>
-      Изменить
+      Редактировать
     </div>
   </>
 )
@@ -138,7 +138,7 @@ const Demand = ({ node }) => (
       Удалить заявку
     </div>
     <div className="button" onClick={() => edit(node)}>
-      Изменить
+      Редактировать
     </div>
   </>
 )
@@ -149,7 +149,7 @@ const Employee = ({ node }) => (
       Удалить сотрудника
     </div>
     <div className="button" onClick={() => edit(node)}>
-      Изменить
+      Редактировать
     </div>
   </>
 )
@@ -160,7 +160,7 @@ const Project = ({ node }) => (
       Удалить комплекс
     </div>
     <div className="button" onClick={() => edit(node)}>
-      Изменить
+      Редактировать
     </div>
   </>
 )

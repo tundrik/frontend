@@ -1,6 +1,7 @@
 import { useStore } from "effector-react"
 
 import { StaticLoader, DisplayLoader, Form, BackButton, Label } from "../../ui"
+import { createSearch } from "../search"
 
 import { sudden, $entity, onSubmitNode, sendFormNodeFx } from "./init"
 
@@ -14,24 +15,32 @@ const FormProject = ({ form }) => (
     </>
 )
 
-const FormEstate = ({ form }) => (
+const FormEstate = ({ form, extra }) => (
     <>
         <Form form={form} />
         <Label title="Сменить фотографии" />
         <Images maxFiles={18} allowMultiple={true} />
+        <input readOnly className="none" name="type_enum" value={extra.type_enum} />
     </>
 )
 
-const FormEmployee = ({ form }) => (
+const FormEmployee = ({ form, extra }) => {
+    const defaultObject = extra.manager
+    const SearchInput = createSearch({ defaultObject, name: "manager", placeholder: "Поиск руководителя" })
+    return (
+        <>
+            <Form form={form} />
+            {extra.has_manager &&  <SearchInput />}
+            <Label title="Сменить фото профиля" />
+            <Images maxFiles={1} allowMultiple={false} />
+        </>
+    )
+}
+
+const FormDemand = ({ form, extra }) => (
     <>
         <Form form={form} />
-        <Label title="Сменить фото профиля" />
-        <Images maxFiles={1} allowMultiple={false} />
-    </>
-)
-const FormDemand = ({ form }) => (
-    <>
-        <Form form={form} />
+        <input readOnly className="none" name="type_enum" value={extra.type_enum} />
     </>
 )
 const renderSwitchForm = (param) => {
@@ -51,14 +60,13 @@ const renderSwitchForm = (param) => {
 }
 
 const Body = () => {
-    const { type_node, type_enum, form } = useStore($entity)
+    const { type_node, form, extra } = useStore($entity)
     const pending = useStore(sendFormNodeFx.pending)
     const FormNode = renderSwitchForm(type_node)
     return (
         <>
             <div className={pending ? "none" : ""}>
-                <FormNode form={form} />
-                {type_enum &&  <input readOnly className="none" name="type_enum" value={type_enum} />}
+                <FormNode form={form} extra={extra}/>
             </div>
             {pending && <StaticLoader />}
         </>

@@ -2,6 +2,7 @@ import { createRoute } from "."
 
 const navigator = "/navigator/:node(estate|demand|project|employee)/"
 const type_enum = ":type_enum(residential|house|ground|commercial)?/"
+const deal = "{:deal(bay|rent)/}?"
 
 const has = "{has-main-:has_main/}?{has-site-:has_site/}?{has-avito-:has_avito/}?"
           + "{has-yandex-:has_yandex/}?{has-cian-:has_cian/}?"
@@ -14,7 +15,7 @@ const square = "{square-min-:square_min/}?{square-max-:square_max/}?{square-grou
 const sort = "{sort-:sort/}?"
 
 export const NavigatorRoute = createRoute(
-    navigator + type_enum + has + price + square + sort
+    navigator + type_enum + has + deal +price + square + sort
 )
 
 

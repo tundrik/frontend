@@ -1,5 +1,6 @@
 import { DawIcon } from "@/svg"
 import { setModalForm } from "../../features"
+import { phone_site, email_site, office_site } from "../../../constant"
 
 export const HomePage = () => (
     <>
@@ -8,15 +9,15 @@ export const HomePage = () => (
             <div className="action">
                 <div className="sheet">
                     <div className="cell-2 pd-20">
-                        <h4 className="mrt-30">Агенство недвижимости в сочи</h4>
-                        <h2 className="mrt-20">Получите приемущество</h2>
+                        <h4 className="mrt-30">Агентство недвижимости в сочи</h4>
+                        <h2 className="mrt-20">Получите преимущество</h2>
                         <div className="line-1" />
                         <p className="mr-2-0">
-                            Не упустите свой лучший вариант. Cамые выгодные предложения не успевают попасть на открытый
+                            Не упустите свой лучший вариант. Самые выгодные предложения не успевают попасть на открытый
                             рынок. Мы днем и ночью выискиваем новые предложения для наших клиентов.
                         </p>
                         <button className="b-action" onClick={() => setModalForm({})}>
-                            Получить приемущество
+                            Получать предложения
                         </button>
                     </div>
                 </div>
@@ -139,14 +140,14 @@ export const HomePage = () => (
                 <div className="row mr-2">
                     <div className="cell-2">
                         <div className="pd-20">
-                            <h4 className="mrt-35 white-2">Горантированно</h4>
+                            <h4 className="mrt-35 white-2">Гарантированно</h4>
                             <h2 className="mrt-20">100% Удовлетворение</h2>
                             <ul className="indent">
                                 <li>
                                     Встречаем клиентов в аэропорту, помогаем с размещением на время поиска подходящего
                                     варианта.
                                 </li>
-                                <li>Устраиваем ознокомительные поездки по комплексам и улицам города.</li>
+                                <li>Устраиваем ознакомительные поездки по комплексам и улицам города.</li>
                                 <li>Лучшее обслуживание клиентов, без шуток!</li>
                                 <li>24/7 доступны. Обращайтесь к нам в любое время</li>
                             </ul>
@@ -166,13 +167,14 @@ export const HomePage = () => (
                     <h4 className="mrt-30 white-2">В ГОСТИ К НАМ</h4>
                     <h2 className="mrt-20">Контакты</h2>
                     <div className="line-1" />
-                    <p className="mr-2-0">Мы находимся в городе Сочи</p>
                 </div>
                 <div className="cell-2 jc pd-20">
                     <p className="mrt-30">
-                        <b>Телефон:</b> +7 988 160 70 82
+                        <b>Адрес:</b> Сочи {office_site}
                         <br />
-                        <b>Почта:</b> support@liberty.ru
+                        <b>Телефон:</b> {phone_site}
+                        <br />
+                        <b>Почта:</b> {email_site}
                         <br />
                     </p>
                     <p className="mr-2-0">

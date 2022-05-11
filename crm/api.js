@@ -1,8 +1,9 @@
 import { setAlert } from "./features/init"
 import { setCookie } from "./init"
+import { backend_host } from "../constant"
 
-export const host = "http://localhost:8000/crm"
-export const host_base = "http://localhost:8000"
+export const host = `${backend_host}/crm`
+export const host_base = backend_host
 
 const query = {}
 

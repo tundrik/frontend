@@ -3,35 +3,47 @@ import { useStore } from "effector-react"
 import { EstateForm } from "./form"
 import { SelectedAdd } from "./selected"
 import { ArrowIcon } from "@/svg"
-import { StaticLoader, Label, Input, Switch } from "../../ui"
-import { Location } from "./location"
+import { StaticLoader, Label, Input, Switch, SelectStatic, Select } from "../../ui"
+import { Location, createSearch } from "../search"
 import { AddRoute } from "../../router/config"
 import { sendFormNodeFx, $type_enum, setType, submitForm, createInputPrice, createInputPhone } from "./init"
 import { Images } from "@/media/uploader"
+import { RESIDENTIAL, HOUSE, GROUND, COMMERCIAL } from "../../utils"
+
+const demand_type_enum_options = [
+    { value: RESIDENTIAL, label: "Квартира" },
+    { value: HOUSE, label: "Дом" },
+    { value: GROUND, label: "Участок" },
+    { value: COMMERCIAL, label: "Коммерция" },
+]
+
+const type_enum_options = [
+    { value: "ЖК", label: "Жилой комплекс" },
+    { value: "КП", label: "Коттеджный поселок" },
+]
+const deal_options = [
+    { value: "bay", label: "Покупка" },
+    { value: "rent", label: "Аренда" },
+]
+
+const role_options = [
+    { value: "realtor", label: "Риэлтор" },
+    { value: "mini_boss", label: "Руководитель" },
+]
 
 const ProjectForm = () => {
     const InputPrice = createInputPrice({ label: "Минимальная цена", name: "price" })
     const InputPriceSquare = createInputPrice({ label: "Минимальная цена за м²", name: "price_square" })
     return (
         <>
-            <Label title="Тип комплекса" />
-            <div>
-                <select className="system din1 tap" name="type_enum" defaultValue="ЖК">
-                    <option value="ЖК">Жилой комплекс</option>
-                    <option value="КП">Коттеджный поселок</option>
-                </select>
-                <div className="selectIcon">
-                    <ArrowIcon />
-                </div>
-            </div>
             <Location />
             <Label title="О доме" />
             <Input label="Этажность" name="floors" type="number" />
             <Switch label="Есть лифт" name="has_lift" />
             <Switch label="Закрытая територия" name="has_closed_area" />
             <Label title="Данные комплекса" />
+            <SelectStatic label="Тип комплекса" name="type_enum" options={type_enum_options} />
             <Input label="Название" name="project_name" type="text" />
-
             <InputPrice />
             <InputPriceSquare />
             <Input label="Минимальная площадь" name="square" type="number" />
@@ -45,22 +57,22 @@ const ProjectForm = () => {
 
 const EmployeeForm = () => {
     const InputPhone = createInputPhone()
+    const defaultObject = {
+        value: "",
+        id: "",
+    }
+    const SearchInput = createSearch({ defaultObject, name: "manager", placeholder: "Поиск руководителя" })
     return (
         <>
             <Label title="Данные сотрудника" />
+          
             <Input label="Имя" name="first_name" type="text" />
             <Input label="Фамилия" name="last_name" type="text" />
             <InputPhone />
-            <Label title="Роль сотрудника" />
-            <div>
-                <select className="system din1 tap" name="role" defaultValue="realtor">
-                    <option value="realtor">Риэлтор</option>
-                    <option value="mini_boss">Руководитель</option>
-                </select>
-                <div className="selectIcon">
-                    <ArrowIcon />
-                </div>
-            </div>
+            <SelectStatic label="Роль сотрудника" name="role" options={role_options} />
+            <Switch label="Активен" name="has_active" value={true} />
+            <Label title="Руководитель" />
+            <SearchInput />
             <Label title="Фото профиля" />
             <Images maxFiles={1} allowMultiple={false} />
         </>
@@ -77,22 +89,15 @@ const DemandForm = () => {
             <Input label="Имя" name="first_name" type="text" />
             <InputPhone />
             <Label title="Данные заявки" />
-            <div>
-                <select
-                    className="system din1 tap"
-                    name="type_enum"
-                    defaultValue={type_enum}
-                    onChange={(e) => setType(e.target.value)}
-                >
-                    <option value="residential">Заявка на квартиру</option>
-                    <option value="house">Заявка на дом</option>
-                    <option value="ground">Заявка на участок</option>
-                    <option value="commercial">Заявка на коммерцию</option>
-                </select>
-                <div className="selectIcon">
-                    <ArrowIcon />
-                </div>
-            </div>
+            <SelectStatic label="Тип сделки" name="deal" options={deal_options} />
+            <Select
+                label="Категория"
+                name="type_enum"
+                value={type_enum}
+                event={(e) => setType(e.target.value)}
+                options={demand_type_enum_options}
+            />
+
             <InputPrice />
 
             {type_enum !== "ground" && (

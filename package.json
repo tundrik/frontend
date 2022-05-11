@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "scripts": {
     "start:crm": "webpack-dev-server --config ./webpack/crm.dev",
     "build:crm": "webpack --config ./webpack/crm.prod",

@@ -2,6 +2,7 @@ import React, { memo } from "react"
 import history from "history/browser"
 import { useStoreMap, useStore } from "effector-react"
 
+import { EditRoute } from "./router/config"
 import { setExtra, setContact, addKit, $saved, deleteSaved } from "./features/init"
 import { SmallPresentation } from "@/media"
 import { ExtraIcon, SavedIcon, SavedActiveIcon, ArrowIcon } from "@/svg"
@@ -30,14 +31,13 @@ export const DisplayLoader = ({ sudden, children }) => {
     return pending || message ? <Notifier message={message} /> : children
 }
 
-export const StaticLoader = ({style = "loaderDisplay"}) => (
+export const StaticLoader = ({ style = "loaderDisplay" }) => (
     <section className={style}>
         <LoadingIcon />
     </section>
 )
 
 export const Label = ({ title }) => <label className="lbl lab din1">{title}</label>
-
 
 export const Switch = ({ label, name, value, event }) => (
     <label className="system din1" htmlFor={name}>
@@ -47,40 +47,36 @@ export const Switch = ({ label, name, value, event }) => (
     </label>
 )
 
-export const Select = ({ name, value, options, event }) => (
-    <div>
-        <select className="system din1 tap" name={name} value={value} onChange={event}>
+export const Select = ({ label = "", name, value, options, event }) => (
+    <label className="systemSel din1" htmlFor={name}>
+        <div className="lsy">{label}</div>
+        <select className="sel tap" id={name} name={name} value={value} onChange={event}>
             {options.map(({ value, label }) => (
                 <option key={value} value={value}>
                     {label}
                 </option>
             ))}
         </select>
-        <div className="selectIcon">
-            <ArrowIcon />
-        </div>
-    </div>
+    </label>
 )
 
-export const SelectStatic = ({ name, value, options }) => (
-    <div>
-        <select className="system din1 tap" name={name} defaultValue={value}>
+export const SelectStatic = ({ label = "", name, value, options }) => (
+    <label className="systemSel din1" htmlFor={name}>
+        <div className="lsy">{label}</div>
+        <select className="sel tap" id={name} name={name} defaultValue={value}>
             {options.map(({ value, label }) => (
                 <option key={value} value={value}>
                     {label}
                 </option>
             ))}
         </select>
-        <div className="selectIcon">
-            <ArrowIcon />
-        </div>
-    </div>
+    </label>
 )
 
-export const Input = ({ label, type, name, value }) => (
+export const Input = ({ placeholder = "", label, type, name, value }) => (
     <label className="system din1">
         <div className="lsy">{label}</div>
-        <input className="tre" type={type} name={name} defaultValue={value} />
+        <input className="tre" type={type} name={name} defaultValue={value} placeholder={placeholder} />
     </label>
 )
 
@@ -146,12 +142,36 @@ const KontactButton = ({ person }) => (
     </>
 )
 
+const edit = (node) => {
+    EditRoute.navigate({
+        params: {
+            node_code: node,
+        },
+    })
+}
+
+const EditButton = ({ edge }) => (
+    <>
+        {edge.has_edit && (
+            <button className="pointer" onClick={() => edit(edge.node)}>
+                <div className="selectIcon outgoing">
+                    <ArrowIcon />
+                </div>
+            </button>
+        )}
+    </>
+)
+
 const ExtraButton = ({ edge }) => (
-    <button className="pointer" onClick={() => setExtra(edge)}>
-        <div className="extra">
-            <ExtraIcon />
-        </div>
-    </button>
+    <>
+        {edge.has_edit && (
+            <button className="pointer" onClick={() => setExtra(edge)}>
+                <div className="extra">
+                    <ExtraIcon />
+                </div>
+            </button>
+        )}
+    </>
 )
 
 const Header = ({ edge }) => {
@@ -161,7 +181,7 @@ const Header = ({ edge }) => {
             <Pic size={32} url={pic} />
             <div>
                 <div className="row">
-                    <div className="b">{name}</div>
+                    <div className="b cp">{name}</div>
                     <KontactButton person={edge.person} />
                 </div>
                 <div className="subtitle"></div>
@@ -186,10 +206,12 @@ const Present = ({ present }) => (
 )
 
 const DemandItem = ({ edge }) => {
-    const { present, comment, caption, published, pk } = edge
+    const { present, comment, caption, published, pk, mediaImages } = edge
     return (
         <article className="item">
             <div className="pres">
+                <img className="slide serpia" src={mediaImages} width="100%" height="100%" decoding="auto" alt="alt" />
+
                 <Present present={present} />
             </div>
             <div className="body f1">
@@ -243,11 +265,11 @@ const EmployeeItem = ({ edge }) => (
     <article className="item">
         <header className="user">
             <Pic url={edge.person.pic} />
-            <div className="b">{edge.person.name}</div>
+            <div className="b cp">{edge.person.name}</div>
             <span className="w4"></span>
             <div className="b blue">{edge.person.phone}</div>
             <div className="push"></div>
-            <ExtraButton edge={edge} />
+            <EditButton edge={edge} />
         </header>
     </article>
 )

@@ -1,6 +1,7 @@
 import { createEvent, createEffect, createStore, sample, forward } from "effector"
 import { useStore } from "effector-react"
 
+import { phone_site } from "../constant"
 import { HomeRoute, NavigatorRoute, FavoriteRoute } from "./router/config"
 import { PhoneIcon, FavoriteIcon, FavoriteActiveIcon } from "@/svg"
 
@@ -11,8 +12,10 @@ $is_menu.watch((state) => {
     console.log(state)
     if (state) {
         document.documentElement.style.overflow = "hidden"
+        document.body.style.overflow = "hidden"
     } else {
         document.documentElement.style.overflow = ""
+        document.body.style.overflow = ""
     }
 })
 
@@ -50,8 +53,8 @@ export const Header = () => {
     return (
         <>
             <header className="global">
-                <MenuButton open={isOpen} />
                 <div className="sheet f1 row">
+                    <MenuButton open={isOpen} />
                     <div className="logo" onClick={() => HomeRoute.navigate()}>
                         Liberty
                     </div>
@@ -90,8 +93,8 @@ export const Header = () => {
             
                     <div className="phone">
                         <PhoneIcon />
-                        <a className="phone-link" href="tel:+78002002020">
-                            8 988 160 70 82
+                        <a className="phone-link" href={`tel:${phone_site}`}>
+                            {phone_site}
                         </a>
                     </div>
                     <button className="favorite pointer" onClick={()=> FavoriteRoute.navigate({params:{ node_type: "estate"}})}>
@@ -104,8 +107,8 @@ export const Header = () => {
                 <div className="glo-list">
                     <div className="phone2">
                         <PhoneIcon />
-                        <a className="phone-link" href="tel:+78002002020">
-                            8 988 160 70 82
+                        <a className="phone-link" href={`tel:${phone_site}`}>
+                        {phone_site}
                         </a>
                     </div>
 
@@ -126,9 +129,6 @@ export const Header = () => {
                     </div>
                     <div className="lip" onClick={() => navigateNavigator({ node: "estate", type_enum: "commercial" })}>
                         Коммерция
-                    </div>
-                    <div className="lip" onClick={()=> FavoriteRoute.navigate({params:{ node_type: "estate"}})}>
-                        Избранное
                     </div>
                 </div>
             </div>

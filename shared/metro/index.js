@@ -4,22 +4,30 @@ import { useStore } from "effector-react"
 import { LoaderButtom } from "@/ui"
 import { useVirtual } from "./virtual"
 
+const clientWidth = window.innerWidth && document.documentElement.clientWidth ? 
+Math.min(window.innerWidth, document.documentElement.clientWidth) : 
+window.innerWidth || 
+document.documentElement.clientWidth || 
+document.getElementsByTagName('body')[0].clientWidth
+
 
 const getEstimateSize = (node_type) => {
   switch (node_type) {
     case "employee":
       return 70
-
     default:
-      return 266
+      if (clientWidth < 660) {
+        return (60 + 100 + 20 + (clientWidth /100 * 75))
+      }
+      return 248
   }
 }
 
-export const Metro = ({ $edges, $pageInfo, moreSudden, more, Article }) => {
 
+export const Metro = ({ $edges, $pageInfo, moreSudden, more, Article }) => {
   const { ids, node_type } = useStore($pageInfo)
   const { message, pending } = useStore(moreSudden)
-
+  console.log(getEstimateSize(node_type))
   useEffect(() => {
    // window.scrollTo(0, 0)
   }, [])

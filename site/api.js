@@ -1,7 +1,9 @@
 import { setAlert } from "./features"
 
-export const host = "http://localhost:8000/site"
-export const host_base = "http://localhost:8000"
+import { backend_host } from "../constant"
+
+export const host = `${backend_host}/site`
+export const host_base = backend_host
 
 const query = {}
 
