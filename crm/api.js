@@ -80,7 +80,7 @@ export function fetchAbort({ key, cursor }) {
       resolve(data)
     } catch (exc) {
       if (exc.name === "AbortError") {
-        resolve({})
+        resolve(undefined)
       } else {
         reject("Ошибка сети")
       }

@@ -4,6 +4,17 @@ import { host, host_base, fetchAlert, fetchAbort } from "./api"
 
 const app = createDomain()
 
+export const setTheme = app.createEvent()
+export const $theme = app.createStore(false).on(setTheme, (_, state) => state)
+$theme.watch(state => {
+    console.log(state)
+    if (state) {
+        document.documentElement.setAttribute("data-theme", "dark")
+    } else {
+        document.documentElement.setAttribute("data-theme", "")
+    }
+})
+
 export const setCookie = app.createEvent()
 export const $cookie = app.createStore(getCookie("jwt_token")).on(setCookie, (_, state) => state)
 
@@ -103,7 +114,7 @@ const getViewerFx = app.createEffect(async () => {
     return await fetchAlert({ method: "get", cursor: `${host}/profile/viewer/` })
 })
 
-const $viewer = app.createStore({}).on(getViewerFx.doneData, (_, newData) => newData)
+const $viewer = app.createStore({}).on(getViewerFx.doneData, (_, newData) => newData.person)
 
 const deleteNodeFx = app.createEffect(async (node_code) => {
     return await fetchAlert({ cursor: `${host}/delete/${node_code}/` })

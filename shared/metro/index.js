@@ -27,10 +27,6 @@ const getEstimateSize = (node_type) => {
 export const Metro = ({ $edges, $pageInfo, moreSudden, more, Article }) => {
   const { ids, node_type } = useStore($pageInfo)
   const { message, pending } = useStore(moreSudden)
-  console.log(getEstimateSize(node_type))
-  useEffect(() => {
-   // window.scrollTo(0, 0)
-  }, [])
 
   const { virtualItems, totalSize } = useVirtual({
     size: ids.length,

@@ -5,7 +5,7 @@ import { useStoreMap, useStore } from "effector-react"
 import { EditRoute } from "./router/config"
 import { setExtra, setContact, addKit, $saved, deleteSaved } from "./features/init"
 import { SmallPresentation } from "@/media"
-import { ExtraIcon, SavedIcon, SavedActiveIcon, ArrowIcon } from "@/svg"
+import { ExtraIcon, SavedIcon, SavedActiveIcon, LocationIcon,  ArrowIcon } from "@/svg"
 import { LoadingIcon } from "@/svg/Loading"
 
 export const BackButton = () => (
@@ -14,7 +14,7 @@ export const BackButton = () => (
     </button>
 )
 
-export const Pic = ({ size = 56, mr = 12, url = "https://storage.yandexcloud.net/graph/User.jpg" }) => (
+export const Pic = ({ size = 56, mr = 12, url = "https://storage.yandexcloud.net/graph/profile/User.jpeg" }) => (
     <div className="pic" style={{ minWidth: size + 2, height: size + 2, marginRight: mr }}>
         <img className="picImage" alt="Фото профиля" height={size} width={size} src={url} />
     </div>
@@ -249,7 +249,10 @@ const EstateItem = ({ edge }) => {
                     {node_type == "estate" && <SaveButton edge={edge} />}
                 </section>
                 <div className="footer">
-                    <div className="location">{address}</div>
+                    <div className="location">
+                        <LocationIcon />
+                        {address}
+                    </div>
                     <div className="time">
                         {published}
                         <div className="push"></div>
@@ -265,9 +268,12 @@ const EmployeeItem = ({ edge }) => (
     <article className="item">
         <header className="user">
             <Pic url={edge.person.pic} />
-            <div className="b cp">{edge.person.name}</div>
-            <span className="w4"></span>
-            <div className="b blue">{edge.person.phone}</div>
+            <div>
+                <div className="b cp">{edge.person.name}</div>
+                <div className="userCaption">
+                        {edge.sub}
+                </div>
+            </div>
             <div className="push"></div>
             <EditButton edge={edge} />
         </header>

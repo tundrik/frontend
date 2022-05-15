@@ -37,7 +37,6 @@ function step(context) {
   context.method.call(context.scrollable, currentY)
 
   if (currentY !== context.y) {
-    console.log("requestAnimationFrame")
     w.requestAnimationFrame(step.bind(w, context))
   }
 }

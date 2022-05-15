@@ -15,7 +15,7 @@ const square = "{square-min-:square_min/}?{square-max-:square_max/}?{square-grou
 const sort = "{sort-:sort/}?"
 
 export const NavigatorRoute = createRoute(
-    navigator + type_enum + has + deal +price + square + sort
+    navigator + type_enum + deal + has + price + square + sort
 )
 
 

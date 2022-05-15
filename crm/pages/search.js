@@ -1,34 +1,37 @@
 import { useStore } from "effector-react"
 import { createEffect, createStore, createEvent, forward } from "effector"
 import { debounce } from "patronum/debounce"
+import { CloseIcon } from "@/svg"
 
-import { LoaderButtom } from "@/ui"
+import { StaticLoader } from "../ui"
 import { host, fetchAbort } from "../api"
-import { AddRoute } from "../router/config"
 
-export const createSearch = ({ label = "", defaultObject, name, placeholder }) => {
+
+const SelectedSceleton = ({ isOpen, children }) => (
+    <div className={isOpen ? "modalOpenMask modalMask" : "modalMask"}>
+        <div className={isOpen ? "modal fullmax modalOpen" : "modal fullmax"}>{isOpen ? children : null}</div>
+    </div>
+)
+
+const createModalSearch = ({ name }) => {
+    const setOpen = createEvent()
+    const $has_open = createStore(null).on(setOpen, (_, state) => state)
+
     const searchFx = createEffect(async (value) => {
         return await fetchAbort({ key: name, cursor: `${host}/search/${name}/?g=${value}` })
     })
-    const setValue = createEvent()
-    const setObject = createEvent()
-    const $value = createStore(defaultObject)
-        .on(setValue, (_, state) => ({ value: state }))
-        .on(setObject, (_, state) => state)
+    const setInput = createEvent()
+    const $input = createStore("").on(setInput, (_, state) => state)
 
-    const handleChange = setValue.prepend((e) => e.target.value)
+    const handleChange = setInput.prepend((e) => e.target.value)
 
     const setSuggestions = createEvent()
-    const resetSuggestions = createEvent()
     const $suggestions = createStore([])
-        .on(setSuggestions, (_, state) => state.suggestions)
-        .reset(resetSuggestions)
+        .on(setSuggestions, (_, state) => state)
 
     const responseFx = createEffect(async (value) => {
-        if (value.suggestions) {
-            console.log(value)
-            setSuggestions(value)
-        }
+        console.log(value)
+        setSuggestions(value)
         return true
     })
 
@@ -38,20 +41,16 @@ export const createSearch = ({ label = "", defaultObject, name, placeholder }) =
     })
 
     debounce({
-        source: setValue,
+        source: setInput,
         timeout: 300,
         target: searchFx,
     })
-
-    const SearchInput = () => {
-        const { value, id } = useStore($value)
+    const ModalSearch = ({ handleClick, placeholder = "" }) => {
+        const has_open = useStore($has_open)
+        const input = useStore($input)
         const suggestions = useStore($suggestions)
         const pending = useStore(searchFx.pending)
-        const handleClick = (item) => {
-            console.log(item)
-            setObject(item)
-            resetSuggestions()
-        }
+
         const items = suggestions.map((item, index) => {
             return (
                 <li className="liadr" key={index} onClick={() => handleClick(item)}>
@@ -59,131 +58,132 @@ export const createSearch = ({ label = "", defaultObject, name, placeholder }) =
                 </li>
             )
         })
+        return (
+            <SelectedSceleton isOpen={has_open}>
+                <>
+                    <div>
+                        <header className="batwen din1">
+                            <div className="L basisHeader">
+                                <button className="pointer" onClick={() => setOpen(null)}>
+                                    <CloseIcon size="18" />
+                                </button>
+                            </div>
+                            <div className="b s">Поиск</div>
+                            <div className="R basisHeader"></div>
+                        </header>
+                    </div>
+                    <div>
+                        <div className="inputSelected">
+                            <input
+                                className="sE mr-14"
+                                name="search_name"
+                                type="text"
+                                value={input}
+                                onChange={(e) => handleChange(e)}
+                                placeholder={placeholder}
+                            />
+                        </div>
 
+                        <ul className="bodySelected">
+                            {items}
+                            {pending && <StaticLoader />}
+                        </ul>
+                    </div>
+                </>
+            </SelectedSceleton>
+        )
+    }
+
+    ModalSearch.setOpen = setOpen
+
+    return ModalSearch
+}
+
+export const createSelectProject = () => {
+    const ModalSearch = createModalSearch({ name: "project" })
+    const setObject = createEvent()
+    const defaultObject = {
+        value: "",
+        id: "",
+    }
+    const $object = createStore(defaultObject).on(setObject, (_, state) => state)
+    const handleClick = (item) => {
+        setObject(item)
+        ModalSearch.setOpen(null)
+    }
+    const SelectProject = () => {
+        const { value, id } = useStore($object)
         return (
             <div>
-                <div className="lsy">{label}</div>
-                <input
-                    className="system din1 sE"
-                    name="search_name"
-                    type="text"
-                    value={value}
-                    onChange={(e) => handleChange(e)}
-                    placeholder={placeholder}
-                />
-                <div>
-                    <ul className="uladr">
-                        {items}
-                        {pending && <LoaderButtom pending={pending} />}
-                    </ul>
-                </div>
-                <input readOnly className="none" name={name} value={id} />
+                <label className="system din1">
+                    <div className="lsy">Комплекс</div>
+                    {value ? (
+                        <div className="row">
+                            {value}
+                            <div className="delete" onClick={() => setObject(defaultObject)}>
+                                <CloseIcon size="15" />
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="point" onClick={() => ModalSearch.setOpen(true)}>
+                            Выбрать
+                        </div>
+                    )}
+                </label>
+                <input readOnly className="none" name="project" value={id} />
+                <ModalSearch handleClick={handleClick} placeholder="Введите название"/>
             </div>
         )
     }
-    return SearchInput
+    return SelectProject
 }
 
-
-/*  Адрес */
-const defaultData = {
-    address: "",
-    lat: "",
-    lng: "",
-    house: "",
-    street: "",
-    street_type: "",
-}
-
-const sendFx = createEffect(async (address) => {
-    console.log(address)
-    return await fetchAbort({ key: "location", cursor: `${host}/search/suggestions/?g=${address}` })
-})
-
-const setField = createEvent()
-const setValue = createEvent()
-const $addressItems = createStore(defaultData)
-    .on(setField, (_, state) => ({ address: state }))
-    .on(setValue, (_, state) => state)
-    .reset(AddRoute.close)
-
-const handleChange = setField.prepend((e) => e.target.value)
-
-const setSuggestions = createEvent()
-const resetSuggestions = createEvent()
-const $suggestions = createStore([])
-    .on(setSuggestions, (_, state) => state.suggestions)
-    .reset(resetSuggestions)
-
-const responseFx = createEffect(async (value) => {
-    if (value.suggestions) {
-        console.log(value)
-        setSuggestions(value)
+export const createSelectAddress = () => {
+    const ModalSearch = createModalSearch({ name: "suggestions" })
+    const setObject = createEvent()
+    const defaultObject = {
+        value: "",
+        lat: "",
+        lng: "",
+        house: "",
+        street: "",
+        street_type: "",
     }
-    return true
-})
-
-forward({
-    from: sendFx.doneData,
-    to: responseFx,
-})
-
-debounce({
-    source: setField,
-    timeout: 400,
-    target: sendFx,
-})
-
-export const Location = () => {
-    const suggestions = useStore($suggestions)
-    const addressItems = useStore($addressItems)
-    const pending = useStore(sendFx.pending)
-    const { address, lat, lng, house, street, street_type } = addressItems
-
-    const HandleClick = (item) => {
-        console.log(item)
-        setValue({
-            address: item.value,
-            lat: item.data.geo_lat,
-            lng: item.data.geo_lon,
-            house: item.data.house,
-            street_type: item.data.street_type_full,
-            street: item.data.street,
-        })
-        resetSuggestions()
+    const $object = createStore(defaultObject).on(setObject, (_, state) => state)
+    const handleClick = (item) => {
+        setObject(item)
+        ModalSearch.setOpen(null)
     }
-
-    const items = suggestions.map((item, index) => {
+    const SelectAddress = () => {
+        const { value, lat, lng, house, street_type, street  } = useStore($object)
         return (
-            <li className="liadr" key={index} onClick={() => HandleClick(item)}>
-                {item.value}
-            </li>
-        )
-    })
-
-    return (
-        <div>
-            <label className="lbl lab din1">Адрес</label>
-            <input
-                className="system din1 sE"
-                name="address"
-                type="text"
-                value={address}
-                onChange={handleChange}
-                placeholder="Введите адрес"
-            />
-
             <div>
-                <ul className="uladr">
-                    {items}
-                    {pending && <LoaderButtom pending={pending} />}
-                </ul>
+                <label className="system din1">
+                    <div className="lsy">Адрес</div>
+                    {value ? (
+                        <div className="row">
+                            {value}
+                            <div className="delete" onClick={() => setObject(defaultObject)}>
+                                <CloseIcon size="15" />
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="point" onClick={() => ModalSearch.setOpen(true)}>
+                            Выбрать
+                        </div>
+                    )}
+                </label>
+                <input readOnly className="none" name="address" value={value} />
+                <input readOnly className="none" name="lat" value={lat} />
+                <input readOnly className="none" name="lng" value={lng} />
+                <input readOnly className="none" name="house" value={house} />
+                <input readOnly className="none" name="street" value={street} />
+                <input readOnly className="none" name="street_type" value={street_type} />
+                <ModalSearch handleClick={handleClick} placeholder="Введите адрес"/>
             </div>
-            <input readOnly className="none" name="lat" value={lat} />
-            <input readOnly className="none" name="lng" value={lng} />
-            <input readOnly className="none" name="house" value={house} />
-            <input readOnly className="none" name="street" value={street} />
-            <input readOnly className="none" name="street_type" value={street_type} />
-        </div>
-    )
+        )
+    }
+    return SelectAddress
 }
+
+

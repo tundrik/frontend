@@ -54,14 +54,14 @@ export const createInputPhone = () => {
         return (
             <label className="system din1">
                 <div className="lsy">Телефон</div>
-                <input className="tre" name="phone" type="tel" value={value} onChange={handleChangePhone} />
+                <input className="tre" name="phone" type="tel" value={value} onChange={handleChangePhone} placeholder="Введите телефон"/>
             </label>
         )
     }
     return InputPhone
 }
 
-export const createInputPrice = ({ label, name }) => {
+export const createInputPrice = ({ label, name, placeholder="Введите цену" }) => {
     const setPrice = createEvent()
     const $price = createStore("").on(setPrice, (_, state) => state)
     const handleChangePrice = setPrice.prepend((e) => formattedPrice(e.target.value))
@@ -70,7 +70,7 @@ export const createInputPrice = ({ label, name }) => {
         return (
             <label className="system din1">
                 <div className="lsy">{label}</div>
-                <input className="tre" name={name} type="text" value={value} onChange={handleChangePrice} />
+                <input className="tre" name={name} type="text" value={value} onChange={handleChangePrice} placeholder={placeholder}/>
             </label>
         )
     }

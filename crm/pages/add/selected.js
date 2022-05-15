@@ -4,7 +4,7 @@ import { useStore } from "effector-react"
 import { AddRoute } from "../../router/config"
 import { ArrowIcon } from "@/svg"
 import { Label } from "../../ui"
-
+import { $viewer } from "../../init"
 
 const to = (node) => {
   AddRoute.navigate({
@@ -26,6 +26,7 @@ const Selected = ({ label, node, active }) => (
 
 export const SelectedAdd = () => {
   const match = useStore(AddRoute.match)
+  const viewer = useStore($viewer)
   return (
     <>
       {match && (
@@ -34,7 +35,7 @@ export const SelectedAdd = () => {
           <Selected label="Комплекс" node="project" active={match.params.node} />
           <Selected label="Объект" node="estate" active={match.params.node} />
           <Selected label="Заявку" node="demand" active={match.params.node} />
-          <Selected label="Сотрудника" node="employee" active={match.params.node} />
+          {viewer.role === "boss" && <Selected label="Сотрудника" node="employee" active={match.params.node} />}
         </div>
       )}
     </>

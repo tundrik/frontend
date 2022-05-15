@@ -25,12 +25,9 @@ const FormEstate = ({ form, extra }) => (
 )
 
 const FormEmployee = ({ form, extra }) => {
-    const defaultObject = extra.manager
-    const SearchInput = createSearch({ defaultObject, name: "manager", placeholder: "Поиск руководителя" })
     return (
         <>
             <Form form={form} />
-            {extra.has_manager &&  <SearchInput />}
             <Label title="Сменить фото профиля" />
             <Images maxFiles={1} allowMultiple={false} />
         </>

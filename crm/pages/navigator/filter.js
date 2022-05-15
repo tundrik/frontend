@@ -147,23 +147,24 @@ export const Filter = () => {
     if (node === "employee") return <Label title="Фильтр" />
     return (
         <>
-            <Label title="Поиск" />
-            <input
-                className="system din1 sE"
-                value={search}
-                onChange={(e) => handleSearch(e.target.value)}
-                name="address"
-                type="text"
-                placeholder={get_serch_placeholder(node)}
-            />
-            
+           
+            <div className="inputSelected">
+                <input
+                    className="sE mr-14"
+                    value={search}
+                    onChange={(e) => handleSearch(e.target.value)}
+                    name="address"
+                    type="text"
+                    placeholder={get_serch_placeholder(node)}
+                />
+            </div>
+           
             <Switch
                 label="Показывать только мои"
                 name="has_main"
                 value={has_main}
                 event={(e) => handlerSwitch(e, "has_main")}
             />
-            <Label title="Фильтр" />
             <Select
                 label="Сортировка"
                 name="sort"
@@ -171,9 +172,16 @@ export const Filter = () => {
                 event={(e) => handlerSelect(e, "sort")}
                 options={sort_options}
             />
+            <Label title="Фильтр" />
             {node === "demand" && (
                 <>
-                    <Select label="Тип сделки" name="deal" value={deal} event={(e) => handlerSelect(e, "deal")} options={deal_options} />
+                    <Select
+                        label="Тип сделки"
+                        name="deal"
+                        value={deal}
+                        event={(e) => handlerSelect(e, "deal")}
+                        options={deal_options}
+                    />
                 </>
             )}
 
@@ -239,10 +247,8 @@ export const Filter = () => {
                         value={has_domclick}
                         event={(e) => handlerSwitch(e, "has_domclick")}
                     />
-                    
                 </>
             )}
-            
         </>
     )
 }

@@ -1,8 +1,7 @@
 import { useStore } from "effector-react"
 
-
 import { Label, Switch, Input, Select, SelectStatic } from "../../ui"
-import { Location, createSearch } from "../search"
+import { createSelectAddress, createSelectProject } from "../search"
 import { $type_enum, setType, createInputPrice, createInputPhone } from "./init"
 import { Images } from "@/media/uploader"
 
@@ -17,7 +16,6 @@ const estate_type_enum_options = [
 
 const rooms_options = [
     { value: "12", label: "Свободная планировка" },
-    { value: "11", label: "Студия" },
     { value: "1", label: "1" },
     { value: "2", label: "2" },
     { value: "3", label: "3" },
@@ -28,7 +26,9 @@ const rooms_options = [
     { value: "8", label: "8" },
     { value: "9", label: "9" },
     { value: "10", label: "10" },
+    { value: "11", label: "Студия" },
 ]
+
 const renovation_options = [
     { value: "1", label: "Требуется" },
     { value: "2", label: "Косметический" },
@@ -94,18 +94,11 @@ export const EstateForm = () => {
     const type_enum = useStore($type_enum)
     const InputPhone = createInputPhone()
     const InputPrice = createInputPrice({ label: "Цена", name: "price" })
-    const defaultObject = {
-        value: "",
-        id: "",
-    }
-    const SearchInput = createSearch({ defaultObject, name: "project", placeholder: "Поиск комплекса" })
+    const SelectProject = createSelectProject()
+    const SelectAddress = createSelectAddress()
     return (
         <>
-            <Label title="Данные собственника" />
-            <Input label="Имя" name="first_name" type="text" placeholder="Введите имя"/>
-            <InputPhone />
-
-            <Label title="Данные объекта" />
+            <Label title="Основные" />
             <Select
                 label="Категория"
                 name="type_enum"
@@ -113,18 +106,20 @@ export const EstateForm = () => {
                 event={(e) => setType(e.target.value)}
                 options={estate_type_enum_options}
             />
-            <SelectStatic label="Вид объекта" name="object_type" options={getOptions(type_enum)} />
+            <SelectStatic label="Тип объекта" name="object_type" options={getOptions(type_enum)} />
+            <Label title="Местоположение" />
+            <SelectAddress />
+            <SelectProject />
 
-            <Location />
-            <Label title="Комплекс" />
-            <SearchInput />
             {type_enum !== "ground" && (
                 <>
                     <Label title="О доме" />
-                    <Input label="Этажность" name="floors" type="number" />
+                    <Input label="Этажность" name="floors" type="number" placeholder="Введите этажность"/>
                 </>
             )}
-
+            {type_enum === "house" && (
+                <SelectStatic label="Материал стен" name="walls_type" options={walls_type_options} />
+            )}
             {(type_enum === HOUSE || type_enum == GROUND) && (
                 <>
                     <Label title="Комуникации" />
@@ -142,48 +137,39 @@ export const EstateForm = () => {
                 </>
             )}
 
-            {type_enum === "house" && (
-                <SelectStatic label="Материал стен" name="walls_type" options={walls_type_options} />
+            <Label title="Данные объекта" />
+            {(type_enum === RESIDENTIAL || type_enum === COMMERCIAL) && (
+                <>
+                    <Input label="Этаж" name="floor" type="number" placeholder="Введите этаж"/>
+                </>
             )}
 
-            <Label title="Данные объекта" />
             <InputPrice />
 
             {type_enum !== GROUND && (
                 <>
-                    <Input label="Площадь" name="square" type="number" />
+                    <Input label="Площадь" name="square" type="number" placeholder="Введите площадь"/>
+                    <SelectStatic label="Количество комнат" name="rooms" options={rooms_options} />
+                    <SelectStatic label="Ремонт" name="renovation" options={renovation_options} />
                 </>
             )}
 
             {(type_enum === HOUSE || type_enum == GROUND) && (
-                <Input label="Площадь участка (соток)" name="square_ground" type="number" />
+                <Input label="Площадь участка (соток)" name="square_ground" type="number" placeholder="Введите площадь участка"/>
             )}
 
             {type_enum === HOUSE && <SelectStatic label="Статус участка" name="status" options={status_options} />}
 
-            {type_enum === RESIDENTIAL && (
-                <>
-                    <Input label="Этаж" name="floor" type="number" />
-                </>
-            )}
 
-            {type_enum === RESIDENTIAL && (
-                <>
-                    <SelectStatic label="Количество комнат" name="rooms" options={rooms_options} />
-                </>
-            )}
-
-            {type_enum !== GROUND && (
-                <>
-                    <SelectStatic label="Ремонт" name="renovation" options={renovation_options} />
-                </>
-            )}
             <Label title="Выгрузка" />
             <Switch label="Показывать на сайте" name="has_site" value={true} />
             <Switch label="Avito" name="has_avito" value={false} />
             <Switch label="Yandex" name="has_yandex" value={false} />
             <Switch label="Cian" name="has_cian" value={false} />
             <Switch label="DomClick" name="has_domclick" value={false} />
+            <Label title="Данные собственника" />
+            <Input label="Имя" name="first_name" type="text" placeholder="Введите имя"/>
+            <InputPhone />
             <Label title="Описание объекта" />
             <textarea type="text" className="dcript din1" name="comment" />
             <Label title="Фотографии" />

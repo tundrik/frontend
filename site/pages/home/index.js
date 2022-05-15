@@ -5,18 +5,30 @@ import { phone_site, email_site, office_site } from "../../../constant"
 export const HomePage = () => (
     <>
         <section className="home">
-            <img className="image-1" src="/images/home3.jpg" />
+            <video
+                className="video__media"
+                autoPlay={true}
+                loop={true}
+                playsInline={true}
+                muted={true}
+                poster="/images/home3.jpg"
+            >
+                <source
+                    src="https://storage.yandexcloud.net/graph/static/home.mp4"
+                    type="video/mp4"
+                />
+            </video>
             <div className="action">
                 <div className="sheet">
                     <div className="cell-2 pd-20">
                         <h4 className="mrt-30">Агентство недвижимости в сочи</h4>
                         <h2 className="mrt-20">Получите преимущество</h2>
-                        <div className="line-1" />
+                        <div className="line-1 box" />
                         <p className="mr-2-0">
                             Не упустите свой лучший вариант. Самые выгодные предложения не успевают попасть на открытый
                             рынок. Мы днем и ночью выискиваем новые предложения для наших клиентов.
                         </p>
-                        <button className="b-action" onClick={() => setModalForm({})}>
+                        <button className="b-action box" onClick={() => setModalForm({})}>
                             Получать предложения
                         </button>
                     </div>
@@ -186,10 +198,8 @@ export const HomePage = () => (
                     </button>
                     <p className="mrt-30"></p>
                     <p className="mrt-30"></p>
-                  
                 </div>
             </div>
         </section>
     </>
 )
-
