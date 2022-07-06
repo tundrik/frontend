@@ -1,6 +1,6 @@
 import { createEffect, createStore, createEvent, forward } from "effector"
 import { useStore } from "effector-react"
-
+import { NavigatorRoute } from "./router/config"
 import { formattedPhone } from "./utils"
 import { StaticLoader } from "./ui"
 import { setCookie } from "./init"
@@ -19,6 +19,12 @@ onSubmitNode.watch((e) => {
 const responseFx = createEffect(async (response) => {
   if (response.access_token) {
     setCookie(response.access_token)
+    NavigatorRoute.navigate({
+      method: "replace",
+      params: {
+          node: "demand",
+      },
+    })
   }
   return true
 })

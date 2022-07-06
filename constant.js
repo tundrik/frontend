@@ -1,5 +1,5 @@
 export const backend_host = "http://localhost:8000"
 // export const backend_host = "https://backend.liberty-realty.ru"
-export const phone_site = "+7 988 160 70 82"
-export const email_site = "support@liberty-realty.ru"
-export const office_site = "Гагарина 7"
+export const phone_site = "+7 952 836 62 62"
+export const email_site = "LibertySochi@yandex.ru"
+export const office_site = "Сочи, улица Волжская, 30"

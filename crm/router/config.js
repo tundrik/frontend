@@ -7,6 +7,7 @@ const deal = "{:deal(bay|rent)/}?"
 const has = "{has-main-:has_main/}?{has-site-:has_site/}?{has-avito-:has_avito/}?"
           + "{has-yandex-:has_yandex/}?{has-cian-:has_cian/}?"
           + "{has-domclick-:has_domclick/}?"
+          + "{has-archive-:has_archive/}?"
 
 const price = "{price-min-:price_min/}?{price-max-:price_max/}?"
 

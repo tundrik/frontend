@@ -37,6 +37,7 @@ const ButtonTheme = () => {
 
 export const Nav = () => {
     const viewer = useStore($viewer)
+    console.log(viewer)
     useEffect(() => {
         getViewerFx()
         getKitsFx()
@@ -57,9 +58,9 @@ export const Nav = () => {
                     <TabDemand />
                     <TabEstate />
                     <TabProject />
-                    <TabAdd />
-                    <TabEmployee />
                     <TabKit />
+                    {viewer?.role === "boss" &&   <TabEmployee />}
+                    <TabAdd />
                 </div>
                 <ButtonTheme />
             </nav>

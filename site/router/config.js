@@ -17,3 +17,4 @@ export const NavigatorRoute = createRoute(
 
 export const NodeRoute = createRoute("/node/:node_code/")
 export const FavoriteRoute = createRoute("/favorite/:node_type(estate|project)/")
+export const KitRoute = createRoute("/kit/:node_code/")

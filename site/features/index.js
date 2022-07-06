@@ -52,7 +52,7 @@ const createInputPhone = () => {
         return (
             <label className="m-system">
                 <input
-                    className="tre"
+                    className="input"
                     name="phone"
                     type="tel"
                     value={value}
@@ -103,7 +103,7 @@ export const ModalForm = () => {
                         <input className="input" type="text" name="name" placeholder="Введите имя" />
                     </label>
                     <InputPhone />
-                    <button className="m-action" type="submit" form="action">
+                    <button className="button bottom" type="submit" form="action">
                         Отправить
                     </button>
                     <input className="none" type="text" name="type_form" defaultValue={"home"} />

@@ -78,9 +78,11 @@ export function fetchAbort({ key, cursor }) {
 
       const data = await response.json()
       resolve(data)
+
     } catch (exc) {
       if (exc.name === "AbortError") {
-        resolve(undefined)
+        resolve({})
+
       } else {
         reject("Ошибка сети")
       }

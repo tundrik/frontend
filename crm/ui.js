@@ -42,15 +42,23 @@ export const Label = ({ title }) => <label className="lbl lab din1">{title}</lab
 export const Switch = ({ label, name, value, event }) => (
     <label className="system din1" htmlFor={name}>
         {label}
-        <input id={name} type="checkbox" name={name} defaultChecked={value} onChange={event} />
+        <input id={name} type="checkbox" name={name} checked={value} onChange={event} />
+        <label className="switch" htmlFor={name}></label>
+    </label>
+)
+
+export const SwitchStatic = ({ label, name, value }) => (
+    <label className="system din1" htmlFor={name}>
+        {label}
+        <input id={name} type="checkbox" name={name} defaultChecked={value} />
         <label className="switch" htmlFor={name}></label>
     </label>
 )
 
 export const Select = ({ label = "", name, value, options, event }) => (
     <label className="systemSel din1" htmlFor={name}>
-        <div className="lsy">{label}</div>
-        <select className="sel tap" id={name} name={name} value={value} onChange={event}>
+        <div className="lsysel">{label}</div>
+        <select className="sel" id={name} name={name} value={value} onChange={event}>
             {options.map(({ value, label }) => (
                 <option key={value} value={value}>
                     {label}
@@ -62,8 +70,8 @@ export const Select = ({ label = "", name, value, options, event }) => (
 
 export const SelectStatic = ({ label = "", name, value, options }) => (
     <label className="systemSel din1" htmlFor={name}>
-        <div className="lsy">{label}</div>
-        <select className="sel tap" id={name} name={name} defaultValue={value}>
+        <div className="lsysel">{label}</div>
+        <select className="sel" id={name} name={name} defaultValue={value}>
             {options.map(({ value, label }) => (
                 <option key={value} value={value}>
                     {label}
@@ -91,7 +99,7 @@ const renderSwitchControl = (param) => {
             return Input
 
         case "checkbox":
-            return Switch
+            return SwitchStatic
 
         case "select":
             return SelectStatic
@@ -216,7 +224,7 @@ const DemandItem = ({ edge }) => {
             </div>
             <div className="body f1">
                 <Header edge={edge} />
-                <div className="truncate">{comment}</div>
+                <div className="truncate" dangerouslySetInnerHTML={{__html: comment}}></div>
                 <section className="itemAction">
                     <div className="h3">{caption}</div>
                 </section>
@@ -243,7 +251,7 @@ const EstateItem = ({ edge }) => {
             </div>
             <div className="body f1">
                 <Header edge={edge} />
-                <div className="truncate">{comment}</div>
+                <div className="truncate" dangerouslySetInnerHTML={{__html: comment}}></div>
                 <section className="itemAction">
                     <div className="h3">{caption}</div>
                     {node_type == "estate" && <SaveButton edge={edge} />}

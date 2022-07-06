@@ -12,15 +12,18 @@ export const NavigatorPage = () => {
         Article,
     }
     return (
-        <main className="sheet main">
-            <div className="filter">
-                <Filter />
-            </div>
-            <div className="f1">
-                <DisplayLoader sudden={sudden}>
-                    <Metro {...configMetro} />
-                </DisplayLoader>
-            </div>
-        </main>
+        <>
+            <header className="batmen">
+                <div className="linef"></div>
+            </header>
+            <Filter />
+            <main className="mn">
+                <div className="f1">
+                    <DisplayLoader sudden={sudden}>
+                        <Metro {...configMetro} />
+                    </DisplayLoader>
+                </div>
+            </main>
+        </>
     )
 }

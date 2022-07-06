@@ -12,15 +12,18 @@ export const FavoritePage = () => {
         Article,
     }
     return (
-        <main className="sheet main">
-            <div className="filter">
+        <>
+            <header className="batmen">
+                <div className="linef"></div>
+            </header>
             <Filter />
-            </div>
-            <div className="f1">
-                <DisplayLoader sudden={sudden}>
-                    <Metro {...configMetro} />
-                </DisplayLoader>
-            </div>
-        </main>
+            <main className="mn">
+                <div className="f1">
+                    <DisplayLoader sudden={sudden}>
+                        <Metro {...configMetro} />
+                    </DisplayLoader>
+                </div>
+            </main>
+        </>
     )
 }

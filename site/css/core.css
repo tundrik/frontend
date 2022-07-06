@@ -1,0 +1,463 @@
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    margin: 0;
+}
+/* cyrillic-ext */
+@font-face {
+    font-family: "Cormorant SC";
+    font-style: normal;
+    font-weight: 200;
+    font-display: block;
+    src: url(https://fonts.gstatic.com/s/cormorantsc/v16/0ybmGD4kxqXBmOVLG30OGwsmWBMk9xfzwDM.woff2) format("woff2");
+    unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+    font-family: "Cormorant SC";
+    font-style: normal;
+    font-weight: 200;
+    font-display: block;
+    src: url(https://fonts.gstatic.com/s/cormorantsc/v16/0ybmGD4kxqXBmOVLG30OGwsmWBMk_hfzwDM.woff2) format("woff2");
+    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+    font-family: "Cormorant SC";
+    font-style: normal;
+    font-weight: 200;
+    font-display: block;
+    src: url(https://fonts.gstatic.com/s/cormorantsc/v16/0ybmGD4kxqXBmOVLG30OGwsmWBMk9RfzwDM.woff2) format("woff2");
+    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+    font-family: "Cormorant SC";
+    font-style: normal;
+    font-weight: 200;
+    font-display: block;
+    src: url(https://fonts.gstatic.com/s/cormorantsc/v16/0ybmGD4kxqXBmOVLG30OGwsmWBMk9BfzwDM.woff2) format("woff2");
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+    font-family: "Cormorant SC";
+    font-style: normal;
+    font-weight: 200;
+    font-display: block;
+    src: url(https://fonts.gstatic.com/s/cormorantsc/v16/0ybmGD4kxqXBmOVLG30OGwsmWBMk-hfz.woff2) format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
+        U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* cyrillic-ext */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url(https://fonts.gstatic.com/s/montserrat/v24/JTUSjIg1_i6t8kCHKm459WRhyzbi.woff2) format('woff2');
+    unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+  }
+  /* cyrillic */
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url(https://fonts.gstatic.com/s/montserrat/v24/JTUSjIg1_i6t8kCHKm459W1hyzbi.woff2) format('woff2');
+    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  }
+  /* vietnamese */
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url(https://fonts.gstatic.com/s/montserrat/v24/JTUSjIg1_i6t8kCHKm459WZhyzbi.woff2) format('woff2');
+    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+  }
+  /* latin-ext */
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url(https://fonts.gstatic.com/s/montserrat/v24/JTUSjIg1_i6t8kCHKm459Wdhyzbi.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  /* latin */
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url(https://fonts.gstatic.com/s/montserrat/v24/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  /* cyrillic-ext */
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-display: block;
+    src: url(https://fonts.gstatic.com/s/montserrat/v24/JTUSjIg1_i6t8kCHKm459WRhyzbi.woff2) format('woff2');
+    unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+  }
+  /* cyrillic */
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-display: block;
+    src: url(https://fonts.gstatic.com/s/montserrat/v24/JTUSjIg1_i6t8kCHKm459W1hyzbi.woff2) format('woff2');
+    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  }
+  /* vietnamese */
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-display: block;
+    src: url(https://fonts.gstatic.com/s/montserrat/v24/JTUSjIg1_i6t8kCHKm459WZhyzbi.woff2) format('woff2');
+    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+  }
+  /* latin-ext */
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-display: block;
+    src: url(https://fonts.gstatic.com/s/montserrat/v24/JTUSjIg1_i6t8kCHKm459Wdhyzbi.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  /* latin */
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-display: block;
+    src: url(https://fonts.gstatic.com/s/montserrat/v24/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+
+
+ymaps {
+    box-sizing: content-box;
+}
+
+:root {
+    --background: linear-gradient(to right, #ffffff -18.14%, #ffffff 362.3%);
+    --text-color: rgb(20, 20, 20);
+}
+
+html[data-theme="dark"] {
+    --background: linear-gradient(to right, #07080a -18.14%, #15171b 362.3%);
+    --text-color: rgb(230, 230, 230);
+}
+html {
+    overflow-y: scroll;
+}
+
+html,
+body,
+#root {
+    min-height: 100vh;
+}
+
+.hidden {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    position: fixed;
+}
+
+body,
+button,
+select,
+input,
+textarea {
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    color: var(--text-color);
+    background: var(--background);
+    transition: background-color 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: color 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+article,
+div,
+footer,
+header,
+main,
+nav,
+form,
+section {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-width: 0;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    background: 0 0;
+    border: 0;
+    margin: 0;
+    cursor: pointer;
+    width: fit-content;
+    padding: 0;
+    color: currentColor;
+}
+
+select,
+input,
+textarea {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 0;
+    margin: 0;
+    border-radius: 0;
+    background: inherit;
+}
+
+::placeholder {
+    color: #999;
+}
+
+select:focus,
+input:focus,
+textarea:focus {
+    outline: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[type="checkbox"] {
+    visibility: hidden;
+    display: none;
+}
+
+svg {
+    fill: currentColor;
+}
+a {
+    color: inherit;
+    text-decoration: inherit;
+    cursor: pointer;
+    position: relative;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-weight: inherit;
+    line-height: inherit;
+}
+
+p {
+    max-width: 500px;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.pointer {
+    padding: 8px;
+}
+
+.f1 {
+    flex-grow: 1;
+}
+.push {
+    margin: auto;
+}
+.mt8 {
+    margin-top: 8px;
+}
+
+.w4 {
+    margin: 0 4px;
+}
+
+.b {
+    font-weight: 500;
+    text-transform: capitalize;
+}
+.fw5 {
+    font-weight: 500;
+}
+
+.none {
+    display: none;
+}
+.mr-20 {
+    margin: 20px;
+}
+.mrb {
+    margin-bottom: 5px;
+}
+.mrb-20 {
+    margin-bottom: 20px;
+}
+.mrb-40 {
+    margin-bottom: 40px;
+}
+
+
+.line {
+    width: fit-content;
+}
+
+.line:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    bottom: 0px;
+    transform: scaleX(0);
+    background-image: linear-gradient(90deg,#525252 0%,#797979 35%,#525252 100%);
+    transform-origin: bottom right;
+    transition: transform 0.95s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.line:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.knt {
+    margin-top: auto;
+    font-size: 14px;
+}
+
+.cs {
+    font-family: "Cormorant SC";
+}
+
+.mn {
+    flex-grow: 1;
+}
+.coup {
+    flex-grow: 1;
+}
+
+.nav-link {
+    padding: 8px 10px;
+    font-weight: 500;
+}
+.h-f {
+    padding-left: 10px;
+}
+
+.nav-link:hover {
+    opacity: 0.7;
+}
+
+
+
+
+.menuicon {
+    width: 46px;
+    height: 46px;
+    padding: 8px;
+    cursor: pointer;
+    transition: opacity 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    position: relative;
+    justify-content: center;
+}
+
+.bread {
+    position: absolute;
+    z-index: 3;
+    top: 11px;
+    left: 11px;
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3192s cubic-bezier(0.04, 0.04, 0.12, 0.96) 0.1008s;
+}
+
+.bread-crust {
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: rgb(255, 255, 255);
+    border-radius: 0.5px;
+    position: absolute;
+    z-index: 1;
+}
+
+.bread-crust-top {
+    top: 11px;
+    transition: transform 0.1596s cubic-bezier(0.52, 0.16, 0.52, 0.84) 0.1008s;
+    transform: translateY(-3px) scaleX(0.88235);
+}
+.bread-crust-bottom {
+    bottom: 11px;
+    transition: transform 0.1596s cubic-bezier(0.52, 0.16, 0.52, 0.84) 0.1008s;
+    transform: translateY(3px) scaleX(0.88235);
+}
+
+.bread-top.open {
+    transition: transform 0.3192s cubic-bezier(0.04, 0.04, 0.12, 0.96) 0.1008s;
+    transform: rotate(45deg);
+}
+.bread-bottom.open {
+    transition: transform 0.3192s cubic-bezier(0.04, 0.04, 0.12, 0.96) 0.1008s;
+    transform: rotate(-45deg);
+}
+
+.bread-crust-top.open {
+    transition: transform 0.1806s cubic-bezier(0.04, 0.04, 0.12, 0.96);
+    transform: none;
+}
+.bread-crust-bottom.open {
+    transition: transform 0.1806s cubic-bezier(0.04, 0.04, 0.12, 0.96);
+    transform: none;
+}
+
+.blue {
+    opacity: 1;
+    transition: opacity 0.1806s cubic-bezier(0.04, 0.04, 0.12, 0.96);
+}
+
+.blue:hover {
+    opacity: 0.6;
+}
+
+.ymaps-2-1-79-panorama-gotoymaps {
+    display: none !important;
+}
+
+
+.uperline {
+    padding-left: 8px;
+}
+
+
+.acti:hover {
+    opacity: 0.8;
+}
+
+.logo:hover {
+    opacity: 0.7;
+}
+.h-f:hover {
+    opacity: 0.7;
+}

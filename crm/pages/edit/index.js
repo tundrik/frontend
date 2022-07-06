@@ -1,43 +1,45 @@
+import React, { memo } from "react"
 import { useStore } from "effector-react"
 
 import { StaticLoader, DisplayLoader, Form, BackButton, Label } from "../../ui"
-import { createSearch } from "../search"
-
 import { sudden, $entity, onSubmitNode, sendFormNodeFx } from "./init"
 
-import { Images } from "@/media/uploader"
+import { Images, $process } from "../../media"
 
-const FormProject = ({ form }) => (
+const FormProject = memo(({ form, extra }) => (
     <>
         <Form form={form} />
-        <Label title="Сменить фотографии" />
-        <Images maxFiles={18} allowMultiple={true} />
-    </>
-)
-
-const FormEstate = ({ form, extra }) => (
-    <>
-        <Form form={form} />
-        <Label title="Сменить фотографии" />
-        <Images maxFiles={18} allowMultiple={true} />
+        <Label title="Фотографии" />
+        <Images node_type="project" mediaImages={extra.mediaImages}/>
         <input readOnly className="none" name="type_enum" value={extra.type_enum} />
     </>
-)
+))
 
-const FormEmployee = ({ form, extra }) => {
+const FormEstate = memo(({ form, extra }) => (
+    <>
+        <Form form={form} />
+        <Label title="Фотографии" />
+        <Images node_type="estate" mediaImages={extra.mediaImages}/>
+        <input readOnly className="none" name="type_enum" value={extra.type_enum} />
+        <input readOnly className="none" name="customer_pk" value={extra.customer_pk} />
+    </>
+))
+
+const FormEmployee = memo(({ form, extra }) => {
     return (
         <>
             <Form form={form} />
-            <Label title="Сменить фото профиля" />
-            <Images maxFiles={1} allowMultiple={false} />
+            <Label title="Фото профиля" />
+            <Images node_type="employee" mediaImages={extra.mediaImages}/>
         </>
     )
-}
+})
 
 const FormDemand = ({ form, extra }) => (
     <>
         <Form form={form} />
         <input readOnly className="none" name="type_enum" value={extra.type_enum} />
+        <input readOnly className="none" name="customer_pk" value={extra.customer_pk} />
     </>
 )
 const renderSwitchForm = (param) => {
@@ -72,6 +74,9 @@ const Body = () => {
 
 export const EditPage = () => {
     const pending = useStore(sendFormNodeFx.pending)
+    const process_len = useStore($process)
+    const process = process_len > 0
+    const title =  process ? "Фотографии еще не загружены" : "Отправить форму"
     return (
         <main className="main">
             <section className="window">
@@ -81,7 +86,7 @@ export const EditPage = () => {
                     </div>
                     <div className="b s">Редактирование</div>
                     <div className="basisHeader R">
-                        <button className="pointer b blue s" type="submit" form="node" disabled={pending}>
+                        <button className="pointer b blue s" type="submit" form="node" disabled={pending || process} title={title}>
                             Готово
                         </button>
                     </div>

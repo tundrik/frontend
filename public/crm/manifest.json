@@ -14,7 +14,8 @@
     }
 ],
   "start_url": "https://crm.liberty-realty.ru/navigator/demand/",
-  "display": "fullscreen",
-  "theme_color": "#fafafa",
-  "background_color": "#fafafa"
+  "scope": "https://crm.liberty-realty.ru/",
+  "display": "standalone",
+  "theme_color": "#000",
+  "background_color": "#000"
 }

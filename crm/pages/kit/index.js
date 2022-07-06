@@ -38,8 +38,10 @@ const Kits = () => {
     const kits = useStore($kits)
     const match = useStore(KitRoute.match)
     const { node_code } = match?.params
-    const items = kits.map((item) => <Selected key={item.node_code} item={item} node_code={node_code} />)
-    return items
+    if (kits.length == 0) {
+        return <div className="not_kit">У вас нет подборок</div>
+    }
+    return kits.map((item) => <Selected key={item.node_code} item={item} node_code={node_code} />)
 }
 
 export const KitPage = () => {

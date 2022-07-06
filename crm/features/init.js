@@ -97,6 +97,6 @@ export const deleteKit = (node_code) => {
 }
 
 export const copyText = (node_code) => {
-    navigator.clipboard.writeText(node_code)
+    navigator.clipboard.writeText(`https://liberty-realty.ru/kit/${node_code}/`)
     setExtra(null)
 }

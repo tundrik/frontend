@@ -43,6 +43,34 @@ export const ArrowIcon = (props) => (
         <path d="M40 33.5c-.4 0-.8-.1-1.1-.4L24 18.1l-14.9 15c-.6.6-1.5.6-2.1 0s-.6-1.5 0-2.1l16-16c.6-.6 1.5-.6 2.1 0l16 16c.6.6.6 1.5 0 2.1-.3.3-.7.4-1.1.4z"></path>
     </svg>
 )
+
+export const ArrowLineIcon = (props) => (
+    <svg height="24" viewBox="0 0 26.25 26.139" width="24" {...props}>
+        <path
+            data-name="Pfad 1101"
+            d="m12.683.206-.414.414a.7.7 0 0 0 0 .994l10.459 10.459H.7a.7.7 0 0 0-.7.7v.586a.7.7 0 0 0 .7.7h22.028l-10.459 10.46a.7.7 0 0 0 0 .994l.414.414a.7.7 0 0 0 .994 0l12.367-12.361a.7.7 0 0 0 0-.994L13.678.206a.7.7 0 0 0-.995 0z"
+        ></path>
+    </svg>
+)
+
+export const LineIcon = () => (
+    <svg width="32" height="6" viewBox="0 0 32 6">
+        <path
+            d="M0 3H30.5M30.5 3C29.537 2.75 27.6111 1.8 27.6111 0M30.5 3C29.537 3.25 27.6111 4.2 27.6111 6"
+            stroke="white"
+            strokeWidth="0.5"
+        ></path>
+    </svg>
+)
+export const Star = () => (
+    <svg width="13" height="13" viewBox="0 0 24 26">
+        <path
+            d="M12 0L14.6 8.49667L23.2583 6.5L17.2 13L23.2583 19.5L14.6 17.5033L12 26L9.4 17.5033L0.74167 19.5L6.8 13L0.74167 6.5L9.4 8.49667L12 0Z"
+            fill="#E4E4E4"
+        ></path>
+    </svg>
+)
+
 export const CloseIcon = ({ size = 24 }) => (
     <svg fill="#262626" height={size} role="img" viewBox="0 0 24 24" width={size}>
         <polyline
@@ -51,14 +79,14 @@ export const CloseIcon = ({ size = 24 }) => (
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="3"
+            strokeWidth="2"
         ></polyline>
         <line
             fill="none"
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="3"
+            strokeWidth="2"
             x1="20.649"
             x2="3.354"
             y1="20.649"
@@ -148,7 +176,7 @@ export const FavoriteIcon = ({ size = 24 }) => (
 )
 
 export const FavoriteActiveIcon = ({ size = 24, style }) => (
-    <svg  viewBox="0 0 48 48" height={size} width={size} style={style} >
+    <svg viewBox="0 0 48 48" height={size} width={size} style={style}>
         <path d="M34.6 3.1c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5s1.1-.2 1.6-.5c1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"></path>
     </svg>
 )

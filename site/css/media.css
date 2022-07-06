@@ -1,0 +1,328 @@
+:root {
+    --lavtop: 80px;
+    --h1-1: 24px;
+    --h1-2: 30px;
+    --h1-3: 40px;
+    --h2: 30px;
+    --mtop: 90px;
+    --mle: 40px;
+    --mar: 5.3vw;
+    --max: 1200px;
+
+}
+
+.mobile-none {
+    padding-left: 7px;
+}
+.mn {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    margin-top: 115px;
+}
+.mn_2 {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    margin-top: 70px;
+}
+
+
+
+
+
+.dt {
+    flex-direction: row;
+    border: 1px solid #999;
+}
+
+.media {
+    flex-grow: 1;
+}
+.mobile {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.content {
+    max-width: 1240px;
+    margin: 0 auto;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.relativeExplorer {
+    flex-grow: 1;
+}
+
+
+
+
+.linef {
+    border-bottom: 1px solid #c1c1c1;
+    flex-grow: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+.nv {
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    z-index: 4;
+    width: 100%;
+}
+
+.mode {
+    mix-blend-mode: difference;
+    color: rgb(255, 255, 255);
+}
+
+.lift {
+    height: 100%;
+}
+.nv.open {
+    height: 100%;
+    background-image: radial-gradient(#0b0a0a, #1a1a1a, #2e2f2f);
+    color: #aaa;
+} 
+
+.lift.open {
+    opacity: 1;
+    transition: opacity 0.3s;
+    visibility: visible;
+    overflow-y: auto;
+    display: flex;
+} 
+.log {
+    flex-grow: 1;
+}
+
+@media (max-width: 660px) {
+    .log {
+        padding: 0px 4px 0 4px;
+    }
+    .pol {
+        width: 100%;
+    }
+
+    .pereplet {
+        height: 50px;
+    }
+    .cover-home {
+        justify-content: flex-end;
+        padding-bottom: 50px;
+    }
+
+    .mobile-none {
+        display: none;
+    }
+    .copi {
+        height: 60px;
+        justify-content: center;
+    }
+
+    :root {
+        --h2: 28px;
+        --mle: 20px;
+    }
+    .batmen {
+        position: fixed;
+        top: 0;
+        height: 47px;
+        width: 100%;
+        background: white;
+        z-index: 2;
+    }
+
+    .about {
+        padding: 30px 0;
+        margin: 30px 0;
+    }
+    
+}
+
+@media (min-width: 661px) {
+    .log {
+        padding: 10px 20px 0 20px;
+    }
+
+    .pol {
+        width: 50%;
+    }
+    .book {
+        flex-direction: row;
+    }
+
+    .item {
+        flex-direction: row;
+        height: 273px;
+        padding: 10px 20px;
+    }
+
+    .contact {
+        height: 56px;
+        min-height: 56px;
+        position: absolute;
+        padding-left: 375px;
+        z-index: 1;
+        width: calc(100% - 20px);
+    }
+    .pres {
+        width: 360px; 
+    }
+    .body {
+        padding-top: 54px;
+    }
+    .truncate {
+        display: block;
+    }
+    .batmen {
+        position: fixed;
+        top: 0;
+        height: 64px;
+        width: 100%;
+        background: white;
+        z-index: 2;
+    }
+    .ttl {
+        text-align: end; 
+    }
+
+    .about {
+        align-items: center;
+        padding: 50px 0;
+        margin: 50px 0;
+    }
+    .ck {
+        text-align: center;
+    }
+
+    .abb {
+        text-align: center;
+    }
+}
+
+
+
+
+@media (max-width: 979px) {
+    .is-dec {
+        display: none;
+    }
+
+    .logo {
+        font-size: 32px;
+    }
+    .lift {
+        visibility: hidden;
+        opacity: 0;
+        display: none;
+    }
+    .menu {
+        padding: 46px;
+        align-items: center;
+        justify-content: space-around;
+        flex-grow: 1;
+        border-top: 1px solid #545555;
+    }
+    .knt {
+        padding: 44px;
+        border-top: 1px solid #545555;
+    }
+    .hovlimit {
+        display: none;
+    }
+    .footer-item {
+        display: none;
+    }
+    :root {
+        --mtop: 60px;
+    }
+
+    .inter {
+        top: 70px;
+        width: 100%;
+        background: white;
+    }
+    .sel {
+        border-bottom: 1px solid #999;
+    }
+    .srch {
+        border-bottom: 1px solid #999;
+    }
+    
+}
+
+@media (min-width: 980px) {
+    .log {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 40px 0 40px;
+    }
+    
+    .menuicon {
+        display: none;
+    }
+    .logo {
+        font-size: 40px;
+        line-height: 60px;
+    }
+
+    .menu {
+        flex-direction: row;
+    }
+    .batmen {
+        position: fixed;
+        top: 0;
+        height: 70px;
+        width: 100%;
+        background: white;
+        z-index: 2;
+    }
+    .inter {
+        position: fixed;
+        top: 70px;
+        width: 100%;
+        background: white;
+        z-index: 3;
+    }
+    .filter {
+        flex-direction: row;
+        padding: 0 20px 0 20px;
+        border-bottom: 1px solid #c1c1c1;
+    }
+    .knt {
+        display: none;
+    }
+}
+@media (max-height: 760px) {
+    .cover-home {
+        justify-content: flex-end;
+        padding-bottom: 50px;
+    }
+}
+
+
+@media (min-width: 1500px) {
+
+}
+
+
+@media (min-width: 1200px) {
+
+}
+
+
+@media (max-width: 360px) {
+    :root {
+        --lavtop: 20px;
+        --mle: 16px;
+    }
+
+}
+
+

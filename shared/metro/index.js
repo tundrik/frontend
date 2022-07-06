@@ -17,7 +17,7 @@ const getEstimateSize = (node_type) => {
       return 70
     default:
       if (clientWidth < 660) {
-        return (60 + 100 + 20 + (clientWidth /100 * 75))
+        return (60 + 108 + (clientWidth /100 * 70))
       }
       return 248
   }

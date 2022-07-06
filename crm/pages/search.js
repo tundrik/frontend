@@ -1,11 +1,73 @@
+import React from "react"
 import { useStore } from "effector-react"
 import { createEffect, createStore, createEvent, forward } from "effector"
+import { YMaps, withYMaps } from "react-yandex-maps"
+import { AddRoute } from "../router/config"
 import { debounce } from "patronum/debounce"
 import { CloseIcon } from "@/svg"
 
 import { StaticLoader } from "../ui"
 import { host, fetchAbort } from "../api"
 
+const setInput = createEvent()
+const resetInput = createEvent()
+const $input = createStore("")
+    .on(setInput, (_, state) => state)
+    .reset(resetInput)
+
+forward({
+    from: [AddRoute.navigate, AddRoute.open],
+    to: resetInput,
+})
+const setSuggestions = createEvent()
+const $suggestions = createStore([]).on(setSuggestions, (_, state) => state)
+
+export const Suggest = () => {
+    const input = useStore($input)
+    const suggestions = useStore($suggestions)
+    const handle = (e) => {
+        const value = e.target.value
+        setInput(value)
+        ymaps.suggest("город Сочи " + value).then(function (items) {
+            console.log(items)
+            setSuggestions(items)
+        })
+    }
+    const handleClick = (item) => {
+        const value = item.displayName.replace(", Краснодарский край, Россия", '')
+        const value2 = value.replace(", городской округ Сочи", '')
+        const value3 = value2.replace(", Сочи", '')
+        setInput(value3)
+        setSuggestions([])
+    }
+    const items = suggestions.map((item, index) => {
+        const value = item.displayName.replace(", Краснодарский край, Россия", '')
+        const value2 = value.replace(", городской округ Сочи", '')
+        const value3 = value2.replace(", Сочи", '')
+        return (
+            <li className="liadrauto" key={index} onClick={() => handleClick(item)}>
+                {value3}
+            </li>
+        )
+    })
+
+    return (
+        <div>
+            <label className="system din1">
+                <div className="lsy">Адрес</div>
+                <input
+                    className="tre smal"
+                    type="text"
+                    value={input}
+                    onChange={handle}
+                    name="address"
+                    placeholder="Введите адрес"
+                />
+            </label>
+            <ul className="suggest">{items}</ul>
+        </div>
+    )
+}
 
 const SelectedSceleton = ({ isOpen, children }) => (
     <div className={isOpen ? "modalOpenMask modalMask" : "modalMask"}>
@@ -26,8 +88,7 @@ const createModalSearch = ({ name }) => {
     const handleChange = setInput.prepend((e) => e.target.value)
 
     const setSuggestions = createEvent()
-    const $suggestions = createStore([])
-        .on(setSuggestions, (_, state) => state)
+    const $suggestions = createStore([]).on(setSuggestions, (_, state) => state)
 
     const responseFx = createEffect(async (value) => {
         console.log(value)
@@ -131,7 +192,7 @@ export const createSelectProject = () => {
                     )}
                 </label>
                 <input readOnly className="none" name="project" value={id} />
-                <ModalSearch handleClick={handleClick} placeholder="Введите название"/>
+                <ModalSearch handleClick={handleClick} placeholder="Введите название" />
             </div>
         )
     }
@@ -155,7 +216,7 @@ export const createSelectAddress = () => {
         ModalSearch.setOpen(null)
     }
     const SelectAddress = () => {
-        const { value, lat, lng, house, street_type, street  } = useStore($object)
+        const { value, lat, lng, house, street_type, street } = useStore($object)
         return (
             <div>
                 <label className="system din1">
@@ -179,11 +240,9 @@ export const createSelectAddress = () => {
                 <input readOnly className="none" name="house" value={house} />
                 <input readOnly className="none" name="street" value={street} />
                 <input readOnly className="none" name="street_type" value={street_type} />
-                <ModalSearch handleClick={handleClick} placeholder="Введите адрес"/>
+                <ModalSearch handleClick={handleClick} placeholder="Введите адрес" />
             </div>
         )
     }
     return SelectAddress
 }
-
-

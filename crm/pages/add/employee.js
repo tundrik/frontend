@@ -4,17 +4,20 @@ import { useStore } from "effector-react"
 import { host, fetchAbort } from "../../api"
 import { AddRoute } from "../../router/config"
 
-import { Label, Input, Switch, Select, SelectStatic } from "../../ui"
+import { Label, Input, SwitchStatic, Select, SelectStatic } from "../../ui"
 
 import { createInputPhone } from "./init"
-import { Images } from "@/media/uploader"
+import { Images } from "../../media"
 
-
-const role_options = [
+/*
+ const role_options = [
     { value: "realtor", label: "Риэлтор" },
     { value: "mini_boss", label: "Руководитель" },
     { value: "boss", label: "Директор" },
 ]
+
+const setRole = createEvent()
+const $role = createStore("realtor").on(setRole, (_, state) => state)
 
 const miniBossFx = createEffect(async (value) => {
     return await fetchAbort({ key: "mini_boss", cursor: `${host}/search/manager/` })
@@ -33,21 +36,10 @@ forward({
     to: miniBossFx,
 })
 
-
-const setRole = createEvent()
-const $role = createStore("realtor").on(setRole, (_, state) => state)
-
-
-
-
-export const EmployeeForm = () => {
     const role = useStore($role)
     const manager_options = useStore($manager_options)
-    const InputPhone = createInputPhone()
-    return (
-        <>
-            <Label title="Данные сотрудника" />
-            <Select
+    
+             <Select
                 label="Роль сотрудника"
                 name="role"
                 value={role}
@@ -55,13 +47,26 @@ export const EmployeeForm = () => {
                 options={role_options}
             />
             {role === "realtor" && <SelectStatic label="Отдел" name="manager" options={manager_options} />}
+*/
+
+
+
+
+
+
+
+export const EmployeeForm = () => {
+    const InputPhone = createInputPhone()
+    return (
+        <>
+            <Label title="Данные сотрудника" />
             <Input label="Имя" name="first_name" type="text" placeholder="Введите имя"/>
             <Input label="Фамилия" name="last_name" type="text" placeholder="Введите фамилию"/>
             <InputPhone />
             <Label title="Настройки" />
-            <Switch label="Доступ в CRM" name="has_active" value={true} />
+            <SwitchStatic label="Доступ в CRM" name="has_active" value={true} />
             <Label title="Фото профиля" />
-            <Images maxFiles={1} allowMultiple={false} />
+            <Images node_type="employee" />
         </>
     )
 }

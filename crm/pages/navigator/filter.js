@@ -4,6 +4,8 @@ import { NavigatorRoute } from "../../router/config"
 import { $search } from "../../router/index"
 import { Label, Switch, Select } from "../../ui"
 import { ESTATE, DEMAND, RESIDENTIAL, HOUSE, GROUND, COMMERCIAL } from "../../utils"
+import { $viewer } from "../../init"
+
 
 const get_serch_placeholder = (node) => {
     switch (node) {
@@ -97,6 +99,8 @@ const square_ground_max_options = [
 ]
 
 export const Filter = () => {
+    const viewer = useStore($viewer)
+
     const match = useStore(NavigatorRoute.match)
     const search = useStore($search)
     const params = match?.params || {}
@@ -104,12 +108,13 @@ export const Filter = () => {
         node,
         type_enum = "undefined",
         deal = "undefined",
-        has_main,
-        has_site,
-        has_avito,
-        has_yandex,
-        has_cian,
-        has_domclick,
+        has_main = false,
+        has_site = false,
+        has_avito = false,
+        has_yandex = false,
+        has_cian = false,
+        has_domclick = false,
+        has_archive = false,
         price_max = "undefined",
         square_max = "undefined",
         square_ground_max = "undefined",
@@ -147,7 +152,6 @@ export const Filter = () => {
     if (node === "employee") return <Label title="Фильтр" />
     return (
         <>
-           
             <div className="inputSelected">
                 <input
                     className="sE mr-14"
@@ -158,7 +162,7 @@ export const Filter = () => {
                     placeholder={get_serch_placeholder(node)}
                 />
             </div>
-           
+
             <Switch
                 label="Показывать только мои"
                 name="has_main"
@@ -246,6 +250,18 @@ export const Filter = () => {
                         name="has_domclick"
                         value={has_domclick}
                         event={(e) => handlerSwitch(e, "has_domclick")}
+                    />
+                </>
+            )}
+           
+            {(node === ESTATE || node === DEMAND) && viewer?.role === "boss" &&(
+                <>
+                    <Label title="Архив" />
+                    <Switch
+                        label="Показывать из архива"
+                        name="has_archive"
+                        value={has_archive}
+                        event={(e) => handlerSwitch(e, "has_archive")}
                     />
                 </>
             )}

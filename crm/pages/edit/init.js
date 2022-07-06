@@ -1,13 +1,11 @@
 import { createEffect, createStore, createEvent, sample, combine, forward } from "effector"
 import { fetchAlert, fetchAbort } from "../../api"
 import { EditRoute, NavigatorRoute } from "../../router/config"
-import { $files, setFiles } from "@/media/uploader"
 
 const createPage = ({ clock }) => {
     const fetchFx = createEffect(async (match) => {
         return await fetchAbort({ key: "name" })
     })
-
     const $entity = createStore(null).on(fetchFx.doneData, (_, newData) => newData)
     sample({
         clock: clock,
@@ -26,36 +24,36 @@ const createPage = ({ clock }) => {
 
 const { $entity, sudden } = createPage({ clock: EditRoute.match })
 
-const sendFormNodeFx = createEffect(async ({ e, files }) => {
+
+const sendFormNodeFx = createEffect(async (e) => {
     const formData = new FormData(e.target)
-    for (let variable of files) {
-        formData.append("image", variable.file)
-    }
     return await fetchAlert({ formData: formData })
 })
+
 
 const onSubmitNode = createEvent()
 onSubmitNode.watch((e) => {
     e.preventDefault()
 })
 
-sample({
-    clock: onSubmitNode,
-    source: $files,
-    fn: (files, e) => ({ files, e }),
-    target: sendFormNodeFx,
+
+forward({
+    from: onSubmitNode,
+    to: sendFormNodeFx,
 })
 
 const responseFx = createEffect(async (value) => {
-    NavigatorRoute.navigate({
-        method: "replace",
-        params: {
-            node: value.type_node,
-        },
-    })
-    setFiles([])
+    if (value.type_node) {
+        NavigatorRoute.navigate({
+            method: "replace",
+            params: {
+                node: value.type_node,
+            },
+        })
+    }
     return true
 })
+
 
 forward({
     from: sendFormNodeFx.doneData,

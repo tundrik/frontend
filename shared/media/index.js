@@ -41,17 +41,14 @@ function step(context) {
   }
 }
 
-const Slider = ({ images, width, presentation = false }) => {
+const Slider = ({ images, presentation = false }) => {
   const ref = useRef()
 
-  const [image_width, setImageWidth] = useState(width)
+  const [image_width, setImageWidth] = useState(0)
 
   useEffect(() => {
-    console.log(width)
-    if (!width) {
-      setImageWidth(ref.current.offsetWidth)
-    }
-  }, [width]);
+    setImageWidth(ref.current.offsetWidth)
+  }, []);
 
   const IMG_WIDTH = image_width
 
@@ -148,7 +145,7 @@ const Slider = ({ images, width, presentation = false }) => {
                   <img
                     className="slide"
                     sizes={`${IMG_WIDTH}px`}
-                    src={presentation ? src.presentation : src.linkPart}
+                    src={IMG_WIDTH > 320 ? src.presentation : src.linkPart}
                     width="100%"
                     height="100%"
                     decoding="auto"
@@ -202,7 +199,7 @@ export const Presentation = () => {
   return (
     <div className="presentationMask">
       <ButtonClose />
-      <Slider images={presentation} width={1000} presentation={true} />
+      <Slider images={presentation} presentation={true} />
     </div>
   )
 }
@@ -229,10 +226,14 @@ function useWindowSize() {
 
 
 export const SmallPresentation = ({ images }) => {
-  const { width } = useWindowSize();
-  return <Slider images={images} width={width > 660 ? 300: width} />
+  return <Slider images={images} />
 }
 export const DetaliPresentation = ({ images }) => {
   return <Slider images={images}/>
 }
 
+/**
+ *   const { width } = useWindowSize();
+ * 
+ * 
+ */

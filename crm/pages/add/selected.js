@@ -32,9 +32,9 @@ export const SelectedAdd = () => {
       {match && (
         <div>
           <Label title="Создать" />
-          <Selected label="Комплекс" node="project" active={match.params.node} />
-          <Selected label="Объект" node="estate" active={match.params.node} />
           <Selected label="Заявку" node="demand" active={match.params.node} />
+          <Selected label="Объект" node="estate" active={match.params.node} />
+          <Selected label="Комплекс" node="project" active={match.params.node} />
           {viewer.role === "boss" && <Selected label="Сотрудника" node="employee" active={match.params.node} />}
         </div>
       )}

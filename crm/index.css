@@ -168,7 +168,7 @@ button {
 }
 
 button:disabled {
-    opacity: 0.6;
+    color: #c3c3c3;
 }
 
 body {
@@ -372,7 +372,7 @@ svg {
     border-bottom: var(--solid);
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 2;
 }
 
 .lbl {
@@ -385,6 +385,7 @@ svg {
 .lab {
     text-transform: uppercase;
     font-size: 13.3px;
+    text-align: center;
 }
 
 .system {
@@ -427,6 +428,12 @@ svg {
     flex: 0 1 auto;
 }
 
+.lsysel {
+    font-weight: 500;
+    flex: 0 1 auto;
+    position: absolute;
+}
+
 .tre {
     font-size: 17px;
     line-height: 20px;
@@ -435,6 +442,7 @@ svg {
     display: flex;
     flex-grow: 1;
     background-color: var(--background-light);
+    height: 100%;
 }
 
 .systemSel {
@@ -461,11 +469,12 @@ svg {
     text-align: end;
     background: transparent;
     background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-    
     background-repeat: no-repeat;
     background-position-x: calc(100% - 5px);
     background-position-y: 50%;
     padding-right: 30px;
+    flex-grow: 1;
+    z-index: 1;
 }
 
 .dcript {
@@ -918,6 +927,7 @@ input:checked ~ .iconCheckbox > svg {
     font-weight: 500;
     bottom: 0;
     box-shadow: 0px 0px 2px #00000085;
+    font-size: 16px;
 }
 .price {
     line-height: 28px;
@@ -951,16 +961,16 @@ input:checked ~ .iconCheckbox > svg {
     overflow: hidden;
     position: relative;
     flex-grow: 1;
-}
-.truncate:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 20px;
+    overflow-y: auto;
     border-bottom: 1px solid #efefef;
+    padding-bottom: 10px;
+    white-space: pre-wrap;
 }
+.truncate::-webkit-scrollbar {
+    display: none;
+}
+
+
 
 .itemAction {
     flex-direction: row;
@@ -1234,4 +1244,41 @@ input:checked ~ .iconCheckbox > svg {
     max-width: 280px;
     justify-content: center;
     line-height: 22px;
+}
+.smal {
+    padding-left: 16px;
+}
+
+ul.suggest {
+    position: absolute;
+    top: 44px;
+    background: white;
+    z-index: 1;
+    box-shadow: 0px 2px 4px #00000047;
+    width: 100%;
+}
+
+.liadrauto {
+    padding: 0 15px;
+    line-height: 44px;
+    justify-content: center;
+    cursor: pointer;
+    border-bottom: 1px solid #dddddd;
+}
+
+.liadrauto:hover {
+    background-color: #161616;
+    color: rgb(255, 255, 255);
+}
+.liadrauto:nth-child(2n) {
+    
+}
+
+.not_kit {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #6a6a6a;
+    font-weight: 500;
 }

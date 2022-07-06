@@ -1,14 +1,14 @@
 import { useStore } from "effector-react"
 
-import { Label, Switch, Input, Select, SelectStatic } from "../../ui"
-import { createSelectAddress, createSelectProject } from "../search"
+import { Label, SwitchStatic, Input, Select, SelectStatic } from "../../ui"
+import { createSelectProject, Suggest } from "../search"
 import { $type_enum, setType, createInputPrice, createInputPhone } from "./init"
-import { Images } from "@/media/uploader"
+import { Images } from "../../media"
 
 import { RESIDENTIAL, HOUSE, GROUND, COMMERCIAL } from "../../utils"
 
 const estate_type_enum_options = [
-    { value: RESIDENTIAL, label: "Квартира, апартамент, жилое помещение" },
+    { value: RESIDENTIAL, label: "Квартира" },
     { value: HOUSE, label: "Дом, дача, коттедж" },
     { value: GROUND, label: "Участок" },
     { value: COMMERCIAL, label: "Коммерция" },
@@ -90,12 +90,13 @@ const getOptions = (type_enum) => {
     }
 }
 
+
+
 export const EstateForm = () => {
     const type_enum = useStore($type_enum)
     const InputPhone = createInputPhone()
     const InputPrice = createInputPrice({ label: "Цена", name: "price" })
     const SelectProject = createSelectProject()
-    const SelectAddress = createSelectAddress()
     return (
         <>
             <Label title="Основные" />
@@ -108,13 +109,13 @@ export const EstateForm = () => {
             />
             <SelectStatic label="Тип объекта" name="object_type" options={getOptions(type_enum)} />
             <Label title="Местоположение" />
-            <SelectAddress />
+            <Suggest />
             <SelectProject />
-
+            <div>
             {type_enum !== "ground" && (
                 <>
                     <Label title="О доме" />
-                    <Input label="Этажность" name="floors" type="number" placeholder="Введите этажность"/>
+                    <Input label="Этажность" name="floors" type="number" placeholder="Введите этажность" />
                 </>
             )}
             {type_enum === "house" && (
@@ -123,24 +124,24 @@ export const EstateForm = () => {
             {(type_enum === HOUSE || type_enum == GROUND) && (
                 <>
                     <Label title="Комуникации" />
-                    <Switch label="Есть электричество" name="has_electricity" />
-                    <Switch label="Есть водопровод" name="has_water" />
-                    <Switch label="Есть газ" name="has_gas" />
-                    <Switch label="Есть канализация" name="has_sewerage" />
+                    <SwitchStatic label="Есть электричество" name="has_electricity" />
+                    <SwitchStatic label="Есть водопровод" name="has_water" />
+                    <SwitchStatic label="Есть газ" name="has_gas" />
+                    <SwitchStatic label="Есть канализация" name="has_sewerage" />
                 </>
             )}
             {type_enum !== GROUND && type_enum !== HOUSE && (
                 <>
-                    <Switch label="Есть лифт" name="has_lift" />
-                    <Switch label="Есть мусоропровод" name="has_rubbish_chute" />
-                    <Switch label="Закрытая територия" name="has_closed_area" />
+                    <SwitchStatic label="Есть лифт" name="has_lift" />
+                    <SwitchStatic label="Есть мусоропровод" name="has_rubbish_chute" />
+                    <SwitchStatic label="Закрытая територия" name="has_closed_area" />
                 </>
             )}
-
+            </div>
             <Label title="Данные объекта" />
             {(type_enum === RESIDENTIAL || type_enum === COMMERCIAL) && (
                 <>
-                    <Input label="Этаж" name="floor" type="number" placeholder="Введите этаж"/>
+                    <Input label="Этаж" name="floor" type="number" placeholder="Введите этаж" />
                 </>
             )}
 
@@ -148,32 +149,36 @@ export const EstateForm = () => {
 
             {type_enum !== GROUND && (
                 <>
-                    <Input label="Площадь" name="square" type="number" placeholder="Введите площадь"/>
+                    <Input label="Площадь" name="square" type="number" placeholder="Введите площадь" />
                     <SelectStatic label="Количество комнат" name="rooms" options={rooms_options} />
                     <SelectStatic label="Ремонт" name="renovation" options={renovation_options} />
                 </>
             )}
 
             {(type_enum === HOUSE || type_enum == GROUND) && (
-                <Input label="Площадь участка (соток)" name="square_ground" type="number" placeholder="Введите площадь участка"/>
+                <Input
+                    label="Площадь участка (соток)"
+                    name="square_ground"
+                    type="number"
+                    placeholder="Введите площадь участка"
+                />
             )}
 
             {type_enum === HOUSE && <SelectStatic label="Статус участка" name="status" options={status_options} />}
 
-
             <Label title="Выгрузка" />
-            <Switch label="Показывать на сайте" name="has_site" value={true} />
-            <Switch label="Avito" name="has_avito" value={false} />
-            <Switch label="Yandex" name="has_yandex" value={false} />
-            <Switch label="Cian" name="has_cian" value={false} />
-            <Switch label="DomClick" name="has_domclick" value={false} />
+            <SwitchStatic label="Показывать на сайте" name="has_site" value={true} />
+            <SwitchStatic label="Avito" name="has_avito" value={false} />
+            <SwitchStatic label="Yandex" name="has_yandex" value={false} />
+            <SwitchStatic label="Cian" name="has_cian" value={false} />
+            <SwitchStatic label="DomClick" name="has_domclick" value={false} />
             <Label title="Данные собственника" />
-            <Input label="Имя" name="first_name" type="text" placeholder="Введите имя"/>
+            <Input label="Имя" name="first_name" type="text" placeholder="Введите имя" />
             <InputPhone />
             <Label title="Описание объекта" />
             <textarea type="text" className="dcript din1" name="comment" />
             <Label title="Фотографии" />
-            <Images maxFiles={18} allowMultiple={true} />
+            <Images node_type="estate" />
         </>
     )
 }

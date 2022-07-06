@@ -2,7 +2,7 @@ import React, { memo } from "react"
 import { useStoreMap, useStore } from "effector-react"
 import { SmallPresentation } from "@/media"
 import { LoadingIcon } from "@/svg/Loading"
-import { ArrowIcon, LocationIcon, FavoriteActiveIcon, FavoriteIcon } from "@/svg"
+import { LocationIcon, FavoriteActiveIcon, FavoriteIcon } from "@/svg"
 import { NodeRoute } from "./router/config"
 import { setContact } from "./features"
 import { saveEntity } from "./init"
@@ -32,7 +32,7 @@ export const StaticLoader = ({ style = "loaderDisplay" }) => (
 
 const FavoriteButton = ({ edge }) => (
     <button className="pointer" onClick={() => saveEntity(edge.node)}>
-        {edge.savedByViewer ? <FavoriteActiveIcon style={{color: "#ed4956"}}/> : <FavoriteIcon />}
+        {edge.savedByViewer ? <FavoriteActiveIcon style={{ color: "#ed4956" }} /> : <FavoriteIcon />}
     </button>
 )
 
@@ -58,7 +58,7 @@ const Header = ({ edge }) => {
                 <div className="subtitle"></div>
             </div>
             <div className="push"></div>
-            <FavoriteButton edge={edge}/>
+            {edge.has_kit ? null : <FavoriteButton edge={edge} />}
         </header>
     )
 }
@@ -77,7 +77,7 @@ const Present = ({ present }) => (
 )
 
 const EstateItem = ({ edge }) => {
-    const { node, node_type, mediaImages, present, comment, caption, address, published, pk } = edge
+    const { node, node_type, mediaImages, present, comment, caption, address, published, pk, has_kit } = edge
     return (
         <article className="item">
             <Header edge={edge} />
@@ -87,11 +87,14 @@ const EstateItem = ({ edge }) => {
             </div>
             <div className="body f1">
                 <div className="truncate">{comment}</div>
-                <div className="h3" onClick={() => NodeRoute.navigate({ params: { node_code: node } })}>
-                    {caption}
-                    <i className="arrow right"></i>
-                </div>
-
+                {has_kit ? (
+                    <div className="h3">{caption}</div>
+                ) : (
+                    <div className="h3" onClick={() => NodeRoute.navigate({ params: { node_code: node } })}>
+                        {caption}
+                        <div className="arrow"> →</div>
+                    </div>
+                )}
                 <div className="footer">
                     <div className="location">
                         <LocationIcon />
@@ -121,24 +124,19 @@ export const Article = memo(({ id, store }) => {
 export const Label = ({ title }) => <label className="lab">{title}</label>
 
 export const Switch = ({ label, name, value, event }) => (
-    <label className="system din1" htmlFor={name}>
+    <label className="system" htmlFor={name}>
         {label}
         <input id={name} type="checkbox" name={name} defaultChecked={value} onChange={event} />
         <label className="switch" htmlFor={name}></label>
     </label>
 )
 
-export const Select = ({ name, value, options, event }) => (
-    <div>
-        <select className="system din1 tap" name={name} value={value} onChange={event}>
-            {options.map(({ value, label }) => (
-                <option key={value} value={value}>
-                    {label}
-                </option>
-            ))}
-        </select>
-        <div className="selectIcon">
-            <ArrowIcon />
-        </div>
-    </div>
+export const Select = ({ name, value, options, event, className="sel" }) => (
+    <select className={className} name={name} value={value} onChange={event}>
+        {options.map(({ value, label }) => (
+            <option key={value} value={value}>
+                {label}
+            </option>
+        ))}
+    </select>
 )

@@ -7,7 +7,6 @@ const app = createDomain()
 export const setTheme = app.createEvent()
 export const $theme = app.createStore(false).on(setTheme, (_, state) => state)
 $theme.watch(state => {
-    console.log(state)
     if (state) {
         document.documentElement.setAttribute("data-theme", "dark")
     } else {

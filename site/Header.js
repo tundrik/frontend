@@ -1,36 +1,49 @@
-import { createEvent, createEffect, createStore, sample, forward } from "effector"
+import { createEvent, createStore } from "effector"
 import { useStore } from "effector-react"
-
-import { phone_site } from "../constant"
 import { HomeRoute, NavigatorRoute, FavoriteRoute } from "./router/config"
-import { PhoneIcon, FavoriteIcon, FavoriteActiveIcon } from "@/svg"
+import { FavoriteIcon, FavoriteActiveIcon, LineIcon } from "@/svg"
+import { phone_site, email_site, office_site } from "../constant"
+import { setModalForm } from "./features"
 
 export const setMenu = createEvent()
 export const $is_menu = createStore(false).on(setMenu, (_, props) => props)
 
+const ButtonAction = () => (
+    <button className="acti mrb-20" onClick={() => setModalForm({})}>
+        <LineIcon />
+        <span className="cs uperline">ОСТАВИТЬ ЗАЯВКУ</span>
+    </button>
+)
+
 $is_menu.watch((state) => {
-    console.log(state)
     if (state) {
-        document.documentElement.style.overflow = "hidden"
-        document.body.style.overflow = "hidden"
+        document.documentElement.classList.add("hidden")
+        document.body.classList.add("hidden")
     } else {
-        document.documentElement.style.overflow = ""
-        document.body.style.overflow = ""
+        document.documentElement.classList.remove("hidden")
+        document.body.classList.remove("hidden")
     }
 })
 
-FavoriteRoute.navigate.watch(state => {
+FavoriteRoute.navigate.watch((state) => {
     setMenu(false)
 })
 
-HomeRoute.navigate.watch(state => {
+HomeRoute.navigate.watch((state) => {
     setMenu(false)
+    window.scrollTo(0, 0)
 })
 
-const navigateNavigator = (params) => {
+const navigateProject = () => {
     setMenu(false)
     NavigatorRoute.navigate({
-        params: params,
+        params: { node: "project" },
+    })
+}
+const navigateEstate = (type_enum) => {
+    setMenu(false)
+    NavigatorRoute.navigate({
+        params: { node: "estate", type_enum: type_enum },
     })
 }
 
@@ -45,93 +58,82 @@ const MenuButton = ({ open }) => (
     </button>
 )
 
-export const Header = () => {
-    const match = useStore(NavigatorRoute.match)
+export const FavoriteButton = ({ className }) => {
     const is_favorite = useStore(FavoriteRoute.match)
-    const isOpen = useStore($is_menu)
-
     return (
-        <>
-            <header className="global">
-                <div className="sheet f1 row">
-                    <MenuButton open={isOpen} />
-                    <div className="logo" onClick={() => HomeRoute.navigate()}>
-                        Liberty
-                    </div>
-                    <div className="glo">
-                        <div
-                            className={match?.params.node == "project" ? "lit act" : "lit"}
-                            onClick={() => navigateNavigator({ node: "project" })}
-                        >
-                            Комплексы
-                        </div>
-                        <div
-                            className={match?.params.type_enum == "residential" ? "lit act" : "lit"}
-                            onClick={() => navigateNavigator({ node: "estate", type_enum: "residential" })}
-                        >
-                            Квартиры
-                        </div>
-                        <div
-                            className={match?.params.type_enum == "house" ? "lit act" : "lit"}
-                            onClick={() => navigateNavigator({ node: "estate", type_enum: "house" })}
-                        >
-                            Дома
-                        </div>
-                        <div
-                            className={match?.params.type_enum == "ground" ? "lit act" : "lit"}
-                            onClick={() => navigateNavigator({ node: "estate", type_enum: "ground" })}
-                        >
-                            Участки
-                        </div>
-                        <div
-                            className={match?.params.type_enum == "commercial" ? "lit act" : "lit"}
-                            onClick={() => navigateNavigator({ node: "estate", type_enum: "commercial" })}
-                        >
-                            Коммерция
-                        </div>
-                    </div>
-            
-                    <div className="phone">
-                        <PhoneIcon />
-                        <a className="phone-link" href={`tel:${phone_site}`}>
-                            {phone_site}
-                        </a>
-                    </div>
-                    <button className="favorite pointer" onClick={()=> FavoriteRoute.navigate({params:{ node_type: "estate"}})}>
-                        {is_favorite ? <FavoriteActiveIcon /> : <FavoriteIcon />}
-                    </button>
-                </div>
-            </header>
+        <button className={className} onClick={() => FavoriteRoute.navigate({ params: { node_type: "estate" } })}>
+            {is_favorite ? <FavoriteActiveIcon size="21" /> : <FavoriteIcon size="21" />}
+        </button>
+    )
+}
 
-            <div className={isOpen ? "list-menu open" : "list-menu"}>
-                <div className="glo-list">
-                    <div className="phone2">
-                        <PhoneIcon />
-                        <a className="phone-link" href={`tel:${phone_site}`}>
-                        {phone_site}
+export const Aside = () => {
+    const match = useStore(NavigatorRoute.match)
+    const isOpen = useStore($is_menu)
+    return (
+        <header className={isOpen ? "nv open" : "nv mode"}>
+            <div className="content">
+                <nav className="log">
+                    <header className="mobile">
+                        <MenuButton open={isOpen} />
+                        <a className="cs logo" onClick={() => HomeRoute.navigate()}>
+                            Liberty
                         </a>
-                    </div>
+                        <FavoriteButton className="menuicon" />
+                    </header>
 
-                    <div className="lip" onClick={() => navigateNavigator({ node: "project" })}>
-                        Комплексы
+                    <div className={isOpen ? "lift open" : "lift"}>
+                        <div className="menu">
+                            <a
+                                className={match?.params.node == "project" ? "nav-link act" : "nav-link"}
+                                onClick={navigateProject}
+                            >
+                                Комплексы
+                            </a>
+                            <a
+                                className={match?.params.type_enum == "residential" ? "nav-link act" : "nav-link"}
+                                onClick={() => navigateEstate("residential")}
+                            >
+                                Квартиры
+                            </a>
+                            <a
+                                className={match?.params.type_enum == "house" ? "nav-link act" : "nav-link"}
+                                onClick={() => navigateEstate("house")}
+                            >
+                                Дома
+                            </a>
+                            <a
+                                className={match?.params.type_enum == "ground" ? "nav-link act" : "nav-link"}
+                                onClick={() => navigateEstate("ground")}
+                            >
+                                Участки
+                            </a>
+                            <a
+                                className={match?.params.type_enum == "commercial" ? "nav-link act" : "nav-link"}
+                                onClick={() => navigateEstate("commercial")}
+                            >
+                                Коммерция
+                            </a>
+                            <FavoriteButton className="h-f is-dec" />
+                        </div>
+
+                        <div className="knt">
+                            <ButtonAction />
+                            <p className="mrb fw5">{office_site}</p>
+                            <a className="mrb-20 line" target="_blank" href="https://goo.gl/maps/Vpjmc2tiTsmjVDfU6">
+                                Смотреть на карте
+                            </a>
+                            <a className="mrb line fw5" href={`tel:${phone_site}`}>
+                                {phone_site}
+                            </a>
+                            <a className="line" href={`mailto:${email_site}`}>
+                                {email_site}
+                            </a>
+                        </div>
+
                     </div>
-                    <div
-                        className="lip"
-                        onClick={() => navigateNavigator({ node: "estate", type_enum: "residential" })}
-                    >
-                        Квартиры
-                    </div>
-                    <div className="lip" onClick={() => navigateNavigator({ node: "estate", type_enum: "house" })}>
-                        Дома
-                    </div>
-                    <div className="lip" onClick={() => navigateNavigator({ node: "estate", type_enum: "ground" })}>
-                        Участки
-                    </div>
-                    <div className="lip" onClick={() => navigateNavigator({ node: "estate", type_enum: "commercial" })}>
-                        Коммерция
-                    </div>
-                </div>
+                </nav>
             </div>
-        </>
+        </header>
     )
 }
