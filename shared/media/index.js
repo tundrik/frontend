@@ -133,26 +133,44 @@ const Slider = ({ images, presentation = false }) => {
         >
           <div className="row f1">
             {slide.map((src, index) => {
-              return (
-                <picture
+              if(src.type_enum==="image"){
+                return (
+                  <picture
+                    title="Смотреть фото"
+                    className="slide"
+                    key={src.ranging}
+                    style={{
+                      transform: `translateX(${IMG_WIDTH * (sliceStart + index)}px)`,
+                    }}
+                  >
+                    <img
+                      className="slide"
+                      sizes={`${IMG_WIDTH}px`}
+                      src={IMG_WIDTH > 320 ? src.presentation : src.linkPart}
+                      width="100%"
+                      height="100%"
+                      decoding="auto"
+                      alt="alt"
+                    />
+                  </picture>
+                )
+              } else {
+                return (
+                  <video 
+                  controls
+                  src={src.linkPart}
                   title="Смотреть фото"
                   className="slide"
                   key={src.ranging}
                   style={{
                     transform: `translateX(${IMG_WIDTH * (sliceStart + index)}px)`,
                   }}
-                >
-                  <img
-                    className="slide"
-                    sizes={`${IMG_WIDTH}px`}
-                    src={IMG_WIDTH > 320 ? src.presentation : src.linkPart}
-                    width="100%"
-                    height="100%"
-                    decoding="auto"
-                    alt="alt"
-                  />
-                </picture>
-              )
+                  >
+
+                  </video>
+                )
+              }
+
             })}
           </div>
           

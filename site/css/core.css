@@ -268,9 +268,6 @@ h5 {
     line-height: inherit;
 }
 
-p {
-    max-width: 500px;
-}
 
 .row {
     flex-direction: row;
@@ -317,7 +314,9 @@ p {
 .mrb-40 {
     margin-bottom: 40px;
 }
-
+.pd016 {
+    padding: 0 16px;
+}
 
 .line {
     width: fit-content;
@@ -435,6 +434,7 @@ p {
 .blue {
     opacity: 1;
     transition: opacity 0.1806s cubic-bezier(0.04, 0.04, 0.12, 0.96);
+    color: #0069bd;
 }
 
 .blue:hover {

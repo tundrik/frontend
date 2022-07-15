@@ -11,27 +11,27 @@ document.documentElement.clientWidth ||
 document.getElementsByTagName('body')[0].clientWidth
 
 
-const getEstimateSize = (node_type) => {
+const getEstimateSize = (node_type, estimateSize) => {
   switch (node_type) {
     case "employee":
       return 70
     default:
       if (clientWidth < 660) {
-        return (60 + 108 + (clientWidth /100 * 70))
+        return (60 + 90 + (clientWidth /100 * 70))
       }
-      return 248
+      return estimateSize
   }
 }
 
 
-export const Metro = ({ $edges, $pageInfo, moreSudden, more, Article }) => {
+export const Metro = ({ $edges, $pageInfo, moreSudden, more, Article, estimateSize }) => {
   const { ids, node_type } = useStore($pageInfo)
   const { message, pending } = useStore(moreSudden)
 
   const { virtualItems, totalSize } = useVirtual({
     size: ids.length,
     overscan: 2,
-    estimateSize: getEstimateSize(node_type),
+    estimateSize: getEstimateSize(node_type, estimateSize),
   })
 
   const Atricles = virtualItems.map((virtualRow) => <Article store={$edges} id={ids[virtualRow.index]} key={ids[virtualRow.index]} />)

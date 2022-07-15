@@ -52,7 +52,7 @@ const Header = ({ edge }) => {
             <Pic size={32} url={pic} />
             <div>
                 <div className="row">
-                    <div className="b">{name}</div>
+                    <div className="b nowrap">{name}</div>
                     <KontactButton person={edge.person} />
                 </div>
                 <div className="subtitle"></div>
@@ -86,17 +86,16 @@ const EstateItem = ({ edge }) => {
                 <Present present={present} />
             </div>
             <div className="body f1">
-                <div className="truncate">{comment}</div>
+                <div className="truncate" dangerouslySetInnerHTML={{__html: comment}}></div>
                 {has_kit ? (
                     <div className="h3">{caption}</div>
                 ) : (
-                    <div className="h3" onClick={() => NodeRoute.navigate({ params: { node_code: node } })}>
+                    <div className="h3 blue" onClick={() => NodeRoute.navigate({ params: { node_code: node } })}>
                         {caption}
-                        <div className="arrow"> →</div>
                     </div>
                 )}
                 <div className="footer">
-                    <div className="location">
+                    <div className="location nowrap">
                         <LocationIcon />
                         {address}
                     </div>

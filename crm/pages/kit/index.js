@@ -51,6 +51,7 @@ export const KitPage = () => {
         moreSudden,
         more,
         Article,
+        estimateSize: 248,
     }
     return (
         <>

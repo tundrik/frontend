@@ -10,6 +10,7 @@ export const FavoritePage = () => {
         moreSudden,
         more,
         Article,
+        estimateSize: 273,
     }
     return (
         <>

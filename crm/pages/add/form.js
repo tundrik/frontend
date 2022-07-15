@@ -139,12 +139,6 @@ export const EstateForm = () => {
             )}
             </div>
             <Label title="Данные объекта" />
-            {(type_enum === RESIDENTIAL || type_enum === COMMERCIAL) && (
-                <>
-                    <Input label="Этаж" name="floor" type="number" placeholder="Введите этаж" />
-                </>
-            )}
-
             <InputPrice />
 
             {type_enum !== GROUND && (
@@ -152,6 +146,11 @@ export const EstateForm = () => {
                     <Input label="Площадь" name="square" type="number" placeholder="Введите площадь" />
                     <SelectStatic label="Количество комнат" name="rooms" options={rooms_options} />
                     <SelectStatic label="Ремонт" name="renovation" options={renovation_options} />
+                </>
+            )}
+            {(type_enum === RESIDENTIAL || type_enum === COMMERCIAL) && (
+                <>
+                    <Input label="Этаж" name="floor" type="number" placeholder="Введите этаж" />
                 </>
             )}
 

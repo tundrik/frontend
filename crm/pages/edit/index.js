@@ -22,6 +22,7 @@ const FormEstate = memo(({ form, extra }) => (
         <Images node_type="estate" mediaImages={extra.mediaImages}/>
         <input readOnly className="none" name="type_enum" value={extra.type_enum} />
         <input readOnly className="none" name="customer_pk" value={extra.customer_pk} />
+        <input readOnly className="none" name="location_pk" value={extra.location_pk} />
     </>
 ))
 

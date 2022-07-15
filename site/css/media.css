@@ -29,14 +29,12 @@
     margin-top: 70px;
 }
 
-
-
-
-
 .dt {
-    flex-direction: row;
-    border: 1px solid #999;
+    max-width: 800px;
 }
+
+
+
 
 .media {
     flex-grow: 1;
@@ -253,6 +251,10 @@
     .srch {
         border-bottom: 1px solid #999;
     }
+    .mn_2 {
+        margin-top: 47px;
+    }
+    
     
 }
 

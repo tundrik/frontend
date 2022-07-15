@@ -19,8 +19,10 @@ const demand_type_enum_options = [
 
 const type_enum_options = [
     { value: "ЖК", label: "Жилой комплекс" },
+    { value: "АК", label: "Апартаментный комплекс" },
     { value: "КП", label: "Коттеджный поселок" },
 ]
+
 const deal_options = [
     { value: "bay", label: "Покупка" },
     { value: "rent", label: "Аренда" },

@@ -11,6 +11,7 @@ export const NavigatorPage = () => {
     moreSudden,
     more,
     Article,
+    estimateSize: 248,
   }
   return (
     <>
